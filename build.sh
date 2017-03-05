@@ -1,2 +1,3 @@
 #!/bin/sh
-go build -ldflags "-r ." -o ../../bin/Tesla_calculator
+goqt_rcc -go main -o tc_qrc.go tc.qrc
+go build -ldflags "-r ." -o Tesla_calculator

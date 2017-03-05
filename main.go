@@ -5,7 +5,6 @@ import (
 	"os"
 	//"time"
 	"runtime"
-
 	"github.com/visualfc/goqt/ui"
 )
 
@@ -27,59 +26,6 @@ func version() {
 
 	widget := ui.NewWidget()
 	widget.SetLayout(hbox)
-	widget.Show()
-}
-
-func InputDiagForm() {
-	label := ui.NewLabel()
-	label.SetText("输入你的信息1")
-
-	//输入框
-	inputBox := ui.NewInputDialog()
-	inputBox.SetOptions(ui.QInputDialog_NoButtons)
-	inputBox.SetLabelText("")
-
-	//------------------------------
-
-	label2 := ui.NewLabel()
-	label2.SetText("输入你的信息2")
-	//输入框2
-	inputBox2 := ui.NewInputDialog()
-	inputBox2.SetOptions(ui.QInputDialog_NoButtons)
-	inputBox2.SetLabelText("")
-
-	//计算结果 inputbox + inputbox2
-
-	CalBtn := ui.NewPushButton()
-	CalBtn.SetText("计算")
-
-	//用于显示输出的结果，目前为 inputbox + input2
-	outputLabel := ui.NewLabel()
-
-	CalBtn.OnClicked(func() {
-		outputLabel.Clear()
-		outputLabel.SetText(inputBox.TextValue() + inputBox2.TextValue())
-	})
-
-	hbox := ui.NewHBoxLayout()
-	hbox.AddWidget(label)
-	hbox.AddWidget(inputBox)
-
-	hbox2 := ui.NewHBoxLayout()
-	hbox2.AddWidget(label2)
-	hbox2.AddWidget(inputBox2)
-
-	hbox3 := ui.NewHBoxLayout()
-	hbox3.AddWidget(CalBtn)
-	hbox3.AddWidget(outputLabel)
-
-	vbox := ui.NewVBoxLayout()
-	vbox.AddLayout(hbox)
-	vbox.AddLayout(hbox2)
-	vbox.AddLayout(hbox3)
-
-	widget := ui.NewWidget()
-	widget.SetLayout(vbox)
 	widget.Show()
 }
 
@@ -132,8 +78,9 @@ func main_ui() {
 	})
 
 	CoefficientOfCouplinBtn.OnClicked(func() {
-		InputDiagForm()
+		CoefficientOfCouplinForm()
 	})
+
 
 	hbox := ui.NewHBoxLayout()
 	hbox.AddWidget(btn)
