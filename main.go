@@ -74,7 +74,7 @@ func main_ui() {
 	})
 
 	ArcLengthBtn.OnClicked(func() {
-		version()
+		SparkLengthForm()
 	})
 
 	CoefficientOfCouplinBtn.OnClicked(func() {
