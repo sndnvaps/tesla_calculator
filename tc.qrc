@@ -4,4 +4,7 @@
 		<file>images/cut.png</file>
 		<file>images/CouplingDegree.jpg</file>
     </qresource>
+    <qresource prefix="/forms">
+		<file>mainform.ui</file>
+    </qresource>
 </RCC>
