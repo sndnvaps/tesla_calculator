@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 	//"time"
-	"runtime"
 	"github.com/visualfc/goqt/ui"
+	"runtime"
 )
 
 func main() {
@@ -70,7 +70,7 @@ func main_ui() {
 	})
 
 	SecCoilInfoBtn.OnClicked(func() {
-		version()
+		SecCoilInfoForm()
 	})
 
 	ArcLengthBtn.OnClicked(func() {
@@ -80,7 +80,6 @@ func main_ui() {
 	CoefficientOfCouplinBtn.OnClicked(func() {
 		CoefficientOfCouplinForm()
 	})
-
 
 	hbox := ui.NewHBoxLayout()
 	hbox.AddWidget(btn)

@@ -3,24 +3,23 @@ package main
 import (
 	"fmt"
 	"github.com/visualfc/goqt/ui"
+	"math"
 	"strconv"
 	"strings"
-	"math"
 )
 
-
-/*  用于计算特斯拉线圈的互感系统及耦合系数 
- *  //MutualInductance = (LForward - LReverse)/4 
- *  //CouplingDegree =  MutualInductance / sqrt (L1*L2) 
+/*  用于计算特斯拉线圈的互感系统及耦合系数
+ *  //MutualInductance = (LForward - LReverse)/4
+ *  //CouplingDegree =  MutualInductance / sqrt (L1*L2)
  *  //源代码参考自 http://bbs.kechuang.org/read-kc-tid-58673-1-1.html
  */
 func CoefficientOfCouplingCal(LForward, LReverse, L1, L2 string) string {
-	if ((strings.Compare(LForward,"") !=0 ) && (strings.Compare(LReverse,"") !=0) && (strings.Compare(L1,"") !=0) &&(strings.Compare(L2,"") !=0)) {
-		LForward_x, _ := strconv.ParseFloat(LForward,32)
-		LReverse_y, _ := strconv.ParseFloat(LReverse,32)
-		L1_x, _ := strconv.ParseFloat(L1,32)
-		L2_y, _ := strconv.ParseFloat(L2,32)
-		res :=  (math.Abs(LForward_x - LReverse_y)/4)/(math.Sqrt(L1_x * L2_y))
+	if (strings.Compare(LForward, "") != 0) && (strings.Compare(LReverse, "") != 0) && (strings.Compare(L1, "") != 0) && (strings.Compare(L2, "") != 0) {
+		LForward_x, _ := strconv.ParseFloat(LForward, 32)
+		LReverse_y, _ := strconv.ParseFloat(LReverse, 32)
+		L1_x, _ := strconv.ParseFloat(L1, 32)
+		L2_y, _ := strconv.ParseFloat(L2, 32)
+		res := (math.Abs(LForward_x-LReverse_y) / 4) / (math.Sqrt(L1_x * L2_y))
 		return fmt.Sprintf("%0.6f", res)
 	}
 
@@ -30,9 +29,9 @@ func CoefficientOfCouplingCal(LForward, LReverse, L1, L2 string) string {
 func CoefficientOfCouplinForm() {
 
 	label := ui.NewLabel()
-	label.SetText("正向测试电感值")//LForward
+	label.SetText("正向测试电感值") //LForward
 	//输入框
-	inputBox := ui.NewLineEdit() 
+	inputBox := ui.NewLineEdit()
 	//------------------------------
 	label2 := ui.NewLabel()
 	label2.SetText("反向测试电感值") // LReverse
@@ -49,7 +48,7 @@ func CoefficientOfCouplinForm() {
 	//输入框4
 	inputBox4 := ui.NewLineEdit()
 
-	//计算结果 
+	//计算结果
 	CalBtn := ui.NewPushButton()
 	CalBtn.SetText("计算互感系数")
 
@@ -70,7 +69,7 @@ func CoefficientOfCouplinForm() {
 
 	ImageBox := ui.NewPixmap()
 	ImageBox.Load(":/images/CouplingDegree.jpg") //先加载图片
-	
+
 	picboxLabel.SetPixmap(ImageBox)
 	//---------------结束画图部分----------------------
 
@@ -81,7 +80,7 @@ func CoefficientOfCouplinForm() {
 	hbox2 := ui.NewHBoxLayout()
 	hbox2.AddWidget(label2)
 	hbox2.AddWidget(inputBox2)
-	
+
 	hbox3 := ui.NewHBoxLayout()
 	hbox3.AddWidget(label3)
 	hbox3.AddWidget(inputBox3)
@@ -95,17 +94,15 @@ func CoefficientOfCouplinForm() {
 	hbox5.AddWidget(CalBtn)
 	hbox5.AddWidget(outputLabel)
 
-
 	vbox := ui.NewVBoxLayout()
+	vbox.AddStretchWithStretch(1)
 	vbox.AddLayout(hbox)
 	vbox.AddLayout(hbox2)
 	vbox.AddLayout(hbox3)
 	vbox.AddLayout(hbox4)
 	vbox.AddLayout(hbox5)
 
-
 	widget := ui.NewWidget()
 	widget.SetLayout(vbox)
 	widget.Show()
 }
-
