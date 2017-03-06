@@ -6,5 +6,6 @@
     </qresource>
     <qresource prefix="/forms">
 		<file>mainform.ui</file>
+		<file>sphere.ui</file>
     </qresource>
 </RCC>

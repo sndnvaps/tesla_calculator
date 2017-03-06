@@ -4,6 +4,7 @@ import (
 	"errors"
 	"reflect"
 	"github.com/visualfc/goqt/ui"
+	"log"
 )
 
 type MainForm struct {
@@ -45,7 +46,11 @@ func NewMainForm() (*MainForm, error) {
 	})
 	
 	w.btn2.OnClicked(func() {
-		version()
+		sphere, err := NewSphereForm()
+		if err != nil {
+			log.Fatalln(err)
+		}
+		sphere.Show()
 	})
 	
 	w.btn3.OnClicked(func() {
