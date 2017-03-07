@@ -90,13 +90,13 @@ func SecCoilInfoCal(IFormHight, IFormDiameter, IWireDiameter string) [4]string {
  * FormHight -> 线圈的高度, 单位 cm
  * WireDiameter -> 次级线圈的线径, 单位 mm
  *@return
- * string -> 次级线圈的箍数
+ * string -> 次级线圈的箍数 （FormHight * 10 / (WireDiameter + 0.01)）* 0.97  //此处的0.97为修正系数，因为考虑的手工绕线的情况
  */
 
 func SecCoilTurns(FormHight, WireDiameter float64) string {
-	MagnetWireDiameter := (WireDiameter * (1 / 25.4)) //将毫米转换成 英寸
-	IFormHeight := (FormHight * (1 / 2.54))           //将厘米转换成 英寸
-	output := (1 / (MagnetWireDiameter + 0.000001)) * IFormHeight * 0.97
+	MagnetWireDiameter := WireDiameter //毫米
+	IFormHeight := (FormHight * 10.0)  //将厘米转换成 毫米
+	output := (1 / (MagnetWireDiameter + 0.01)) * IFormHeight * 0.97
 	return fmt.Sprintf("%0.6f", output)
 }
 
@@ -107,11 +107,14 @@ func SecCoilTurns(FormHight, WireDiameter float64) string {
  *@return
  * string -> 次级线圈的寄生电容
  */
+// 毫米转 英寸 需要除 25.4
 func SecCap(FormHight, FormDiameter float64) string {
-	IFormHeight := (float64)(FormHight * (1 / 2.54))      //将厘米转换成 英寸
-	IFormDiameter := (float64)(FormDiameter * (1 / 25.4)) //将毫米转换成 英寸
-	output := (0.29 * IFormHeight) + (0.41 * (IFormDiameter / 2)) + (1.94 * math.Sqrt(((math.Pow((IFormDiameter / 2), 3.0)) / IFormHeight)))
-	return fmt.Sprintf("%0.6f", output)
+	var u float64 = 25.4                       //
+	IFormHeight := (float64)(FormHight * 10.0) //将厘米转换成 毫米
+	IFormDiameter := (float64)(FormDiameter)   // 毫米
+	Radius := IFormDiameter / 2                //线管的半径，单位毫米
+	cs := 5.08 * Radius / u * (0.0563*((IFormHeight/u)/(Radius/u)) + 0.08 + 0.38*math.Sqrt(1/((IFormHeight/u)/(Radius/u))))
+	return fmt.Sprintf("%0.6f", cs)
 }
 
 /*
