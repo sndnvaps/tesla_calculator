@@ -26,6 +26,16 @@ func CoefficientOfCouplingCal(LForward, LReverse, L1, L2 string) string {
 	return "0.0"
 }
 
+func GetMutualInductance(LForward, LReverse string) string {
+	if (strings.Compare(LForward, "") != 0) && (strings.Compare(LReverse, "") != 0) {
+		LForward_x, _ := strconv.ParseFloat(LForward, 32)
+		LReverse_y, _ := strconv.ParseFloat(LReverse, 32)
+		mi := (math.Abs(LForward_x-LReverse_y) / 4)
+		return fmt.Sprintf("%0.6f", mi)
+	}
+	return "0.0"
+}
+
 func CoefficientOfCouplinForm() {
 
 	label := ui.NewLabel()
@@ -50,17 +60,32 @@ func CoefficientOfCouplinForm() {
 
 	//计算结果
 	CalBtn := ui.NewPushButton()
-	CalBtn.SetText("计算互感系数")
+	CalBtn.SetText("计算")
+	
+	//
+	label5 := ui.NewLabel()
+	label5.SetText("互感系数")
+	
+	label6 := ui.NewLabel()
+	label6.SetText("耦合系数")
+	
 
-	//用于显示输出的结果，目前为 inputbox + input2
-	outputLabel := ui.NewLineEdit()
-	outputLabel.SetReadOnly(true) //设置为只读模式
+	//用于显示输出的结果 显示耦合系数
+	CouplingDegree := ui.NewLineEdit()
+	CouplingDegree.SetReadOnly(true) //设置为只读模式
+	
+	//用于显示互感系数
+	MutualInductance := ui.NewLineEdit()
+	MutualInductance.SetReadOnly(true)
 
-	//点击，计算按钮的时候，把 inputbox + input2的内容， 连接起来，并显示在 outputLabel里面
+	//点击，计算按钮的时候，把 inputbox + input2的内容， 连接起来，并显示在 CouplingDegree里面
 	CalBtn.OnClicked(func() {
-		outputLabel.Clear()
+		CouplingDegree.Clear()
+		MutualInductance.Clear()
 		text := CoefficientOfCouplingCal(inputBox.Text(), inputBox2.Text(), inputBox3.Text(), inputBox4.Text())
-		outputLabel.SetText(text)
+		text2 := GetMutualInductance(inputBox.Text(), inputBox2.Text())
+		CouplingDegree.SetText(text)
+		MutualInductance.SetText(text2)
 	})
 
 	//------------------开始画图部分---------------------
@@ -90,9 +115,19 @@ func CoefficientOfCouplinForm() {
 	hbox4.AddWidget(inputBox4)
 
 	hbox5 := ui.NewHBoxLayout()
-	hbox5.AddWidget(picboxLabel) //显示图片
-	hbox5.AddWidget(CalBtn)
-	hbox5.AddWidget(outputLabel)
+	hbox5.AddWidget(label5)
+	hbox5.AddWidget(MutualInductance)
+	
+
+	hbox6 := ui.NewHBoxLayout()
+	hbox6.AddWidget(label6)
+	hbox6.AddWidget(CouplingDegree)
+
+	hbox7 := ui.NewHBoxLayout()
+	hbox7.AddWidget(CalBtn)
+
+	hbox8 := ui.NewHBoxLayout()
+	hbox8.AddWidget(picboxLabel) //显示图片
 
 	vbox := ui.NewVBoxLayout()
 	vbox.AddStretchWithStretch(1)
@@ -101,6 +136,9 @@ func CoefficientOfCouplinForm() {
 	vbox.AddLayout(hbox3)
 	vbox.AddLayout(hbox4)
 	vbox.AddLayout(hbox5)
+	vbox.AddLayout(hbox6)
+	vbox.AddLayout(hbox7)
+	vbox.AddLayout(hbox8)
 
 	widget := ui.NewWidget()
 	widget.SetLayout(vbox)
