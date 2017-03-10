@@ -88,5 +88,6 @@ func SparkLengthForm() {
 
 	widget := ui.NewWidget()
 	widget.SetLayout(vbox)
+	widget.SetWindowTitle("电弧长度计算器")
 	widget.Show()
 }
