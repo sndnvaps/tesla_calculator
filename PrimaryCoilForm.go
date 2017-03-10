@@ -6,6 +6,7 @@ import (
 	"math"
 	"strconv"
 	"fmt"
+	"strings"
 )
 
 /*
@@ -269,7 +270,8 @@ func NewPrimaryCoilForm() (*PrimaryCoilForm, error) {
 	w.picbox.SetPixmap(ImageBox)
 	
 	w.btn1.OnClicked(func() {
-		if IsValidDriver(w.le1) && IsValidDriver(w.le2) && IsValidDriver(w.le3) && IsValidDriver(w.le4) {
+		if (strings.Compare(w.le1.Text(), "") != 0) && (strings.Compare(w.le2.Text(), "") != 0) && 
+				(strings.Compare(w.le3.Text(), "") != 0) && (strings.Compare(w.le4.Text(), "") != 0) {
 			output := CalPrimaryCoilInfo(w.le1.Text(), w.le2.Text(), w.le3.Text(), w.le4.Text() )
 			w.le5.SetText(output[0])
 			w.le6.SetText(output[1])
