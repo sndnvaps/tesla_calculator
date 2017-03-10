@@ -1,11 +1,13 @@
 <RCC>
     <qresource prefix="/">
-                <file>images/copy.png</file>
+        <file>images/copy.png</file>
 		<file>images/cut.png</file>
 		<file>images/CouplingDegree.jpg</file>
+		<file>images/helix_fig.png</file>
     </qresource>
     <qresource prefix="/forms">
 		<file>mainform.ui</file>
 		<file>sphere.ui</file>
+		<file>PrimaryCoilForm.ui</file>
     </qresource>
 </RCC>

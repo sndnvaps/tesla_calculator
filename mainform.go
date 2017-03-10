@@ -42,7 +42,12 @@ func NewMainForm() (*MainForm, error) {
 	w.btn5 = ui.NewPushButtonFromDriver(formWidget.FindChild("pushButton_5"))
 	
 	w.btn1.OnClicked(func() {
-		version()
+		
+		primaryCoil, err := NewPrimaryCoilForm()
+		if err != nil {
+			log.Fatalln(err)
+		}
+		primaryCoil.Show()
 	})
 	
 	w.btn2.OnClicked(func() {
