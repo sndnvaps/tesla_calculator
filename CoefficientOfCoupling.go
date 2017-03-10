@@ -61,19 +61,18 @@ func CoefficientOfCouplinForm() {
 	//计算结果
 	CalBtn := ui.NewPushButton()
 	CalBtn.SetText("计算")
-	
+
 	//
 	label5 := ui.NewLabel()
 	label5.SetText("互感系数")
-	
+
 	label6 := ui.NewLabel()
 	label6.SetText("耦合系数")
-	
 
 	//用于显示输出的结果 显示耦合系数
 	CouplingDegree := ui.NewLineEdit()
 	CouplingDegree.SetReadOnly(true) //设置为只读模式
-	
+
 	//用于显示互感系数
 	MutualInductance := ui.NewLineEdit()
 	MutualInductance.SetReadOnly(true)
@@ -117,7 +116,6 @@ func CoefficientOfCouplinForm() {
 	hbox5 := ui.NewHBoxLayout()
 	hbox5.AddWidget(label5)
 	hbox5.AddWidget(MutualInductance)
-	
 
 	hbox6 := ui.NewHBoxLayout()
 	hbox6.AddWidget(label6)

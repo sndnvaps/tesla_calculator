@@ -2,10 +2,10 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"github.com/visualfc/goqt/ui"
 	"math"
 	"strconv"
-	"fmt"
 	"strings"
 )
 
@@ -119,34 +119,34 @@ document.helixcalc.unit4.value="inches";
 document.helixcalc.unit5.value="inches";
 }
 // -->
-		
+
 */
 
-var Unit float64 = 25.4 // 
+var Unit float64 = 25.4 //
 
 type PrimaryCoilForm struct {
 	*ui.QWidget
-	btn1    *ui.QPushButton // 计算按钮
-	le1     *ui.QLineEdit   //输入框 ->线圈直径D单位mm
-	le2     *ui.QLineEdit   //输入框 -> 线圈匝数 N
-	le3     *ui.QLineEdit   //输入框 -> 绕线线径 W, 单位mm
-	le4     *ui.QLineEdit   //输入框 -> 匝间距 S, 单位mm 
-	
-	le5     *ui.QLineEdit   //输出框
-	le6     *ui.QLineEdit   //输出框
-	le7     *ui.QLineEdit   //输出框
-	le8     *ui.QLineEdit   //输出框
-	
-	label_1 *ui.QLabel      //
+	btn1 *ui.QPushButton // 计算按钮
+	le1  *ui.QLineEdit   //输入框 ->线圈直径D单位mm
+	le2  *ui.QLineEdit   //输入框 -> 线圈匝数 N
+	le3  *ui.QLineEdit   //输入框 -> 绕线线径 W, 单位mm
+	le4  *ui.QLineEdit   //输入框 -> 匝间距 S, 单位mm
+
+	le5 *ui.QLineEdit //输出框
+	le6 *ui.QLineEdit //输出框
+	le7 *ui.QLineEdit //输出框
+	le8 *ui.QLineEdit //输出框
+
+	label_1 *ui.QLabel //
 	label_2 *ui.QLabel
 	label_3 *ui.QLabel
-	label_4 *ui.QLabel      //
+	label_4 *ui.QLabel //
 	label_5 *ui.QLabel
 	label_6 *ui.QLabel
-	label_7 *ui.QLabel      //
+	label_7 *ui.QLabel //
 	label_8 *ui.QLabel
 
-	picbox	*ui.QLabel       //用于放图片
+	picbox *ui.QLabel //用于放图片
 }
 
 //返回螺线管高度
@@ -176,31 +176,29 @@ func WireLong(N, D string) string {
 func CalcCap(H, D string) string {
 	h, _ := strconv.ParseFloat(H, 64) //单位mm
 	d, _ := strconv.ParseFloat(D, 64) //单位mm
-	
+
 	h = h / Unit //转换成 inch
 	d = d / Unit //转换成 inch
-	r := d /2.0 //求半径
-	
-	cs := 5.08 * r * (0.0563*(h/r) + 0.08 + 0.38 * math.Sqrt(1/(h/r)))
-	
+	r := d / 2.0 //求半径
+
+	cs := 5.08 * r * (0.0563*(h/r) + 0.08 + 0.38*math.Sqrt(1/(h/r)))
+
 	return fmt.Sprintf("%0.6f", cs)
 }
-
 
 func CalcInductance(N, D, H string) string {
 	n, _ := strconv.ParseFloat(N, 64)
 	h, _ := strconv.ParseFloat(H, 64) //单位mm
 	d, _ := strconv.ParseFloat(D, 64) //单位mm
-	
+
 	h = h / Unit //转换成 inch
 	d = d / Unit //转换成 inch
-	r := d /2.0 //求半径
-	
-	i :=  (n*n*r*r)/(9*r + 10 * h)
-	
+	r := d / 2.0 //求半径
+
+	i := (n * n * r * r) / (9*r + 10*h)
+
 	return fmt.Sprintf("%0.6f", i)
 }
-
 
 /*
  *
@@ -209,16 +207,16 @@ func CalcInductance(N, D, H string) string {
  *
  *
  */
- 
+
 func CalPrimaryCoilInfo(D, N, W, S string) [4]string {
 	var output [4]string //用于存放输出结果
 	H := FormHeight(N, S, W)
-	output[0]  = H
-	output[1] =  WireLong(N, D)
-	output[2] =  CalcInductance(N, D, H)
-	output[3] =  CalcCap(H, D)
-	
-	return output	
+	output[0] = H
+	output[1] = WireLong(N, D)
+	output[2] = CalcInductance(N, D, H)
+	output[3] = CalcCap(H, D)
+
+	return output
 }
 func NewPrimaryCoilForm() (*PrimaryCoilForm, error) {
 	w := &PrimaryCoilForm{}
@@ -236,17 +234,17 @@ func NewPrimaryCoilForm() (*PrimaryCoilForm, error) {
 	}
 
 	w.btn1 = ui.NewPushButtonFromDriver(formWidget.FindChild("pushButton_1"))
-	
+
 	w.le1 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_1"))
 	w.le2 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_2"))
 	w.le3 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_3"))
 	w.le4 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_4"))
-	
+
 	w.le5 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_5"))
 	w.le6 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_6"))
 	w.le7 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_7"))
 	w.le8 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_8"))
-	
+
 	w.label_1 = ui.NewLabelFromDriver(formWidget.FindChild("label_1"))
 	w.label_2 = ui.NewLabelFromDriver(formWidget.FindChild("label_2"))
 	w.label_3 = ui.NewLabelFromDriver(formWidget.FindChild("label_3"))
@@ -255,24 +253,24 @@ func NewPrimaryCoilForm() (*PrimaryCoilForm, error) {
 	w.label_6 = ui.NewLabelFromDriver(formWidget.FindChild("label_6"))
 	w.label_7 = ui.NewLabelFromDriver(formWidget.FindChild("label_7"))
 	w.label_8 = ui.NewLabelFromDriver(formWidget.FindChild("label_8"))
-	
+
 	w.picbox = ui.NewLabelFromDriver(formWidget.FindChild("pic_label_1"))
-	
+
 	//设置为只读
 	w.le5.SetReadOnly(true)
 	w.le6.SetReadOnly(true)
 	w.le7.SetReadOnly(true)
 	w.le8.SetReadOnly(true)
-	
+
 	ImageBox := ui.NewPixmap()
 	ImageBox.Load(":/images/helix_fig.png") //先加载图片
 
 	w.picbox.SetPixmap(ImageBox)
-	
+
 	w.btn1.OnClicked(func() {
-		if (strings.Compare(w.le1.Text(), "") != 0) && (strings.Compare(w.le2.Text(), "") != 0) && 
-				(strings.Compare(w.le3.Text(), "") != 0) && (strings.Compare(w.le4.Text(), "") != 0) {
-			output := CalPrimaryCoilInfo(w.le1.Text(), w.le2.Text(), w.le3.Text(), w.le4.Text() )
+		if (strings.Compare(w.le1.Text(), "") != 0) && (strings.Compare(w.le2.Text(), "") != 0) &&
+			(strings.Compare(w.le3.Text(), "") != 0) && (strings.Compare(w.le4.Text(), "") != 0) {
+			output := CalPrimaryCoilInfo(w.le1.Text(), w.le2.Text(), w.le3.Text(), w.le4.Text())
 			w.le5.SetText(output[0])
 			w.le6.SetText(output[1])
 			w.le7.SetText(output[2])
@@ -292,15 +290,12 @@ func NewPrimaryCoilForm() (*PrimaryCoilForm, error) {
 			w.le8.Clear()
 		}
 	})
-	
 
-	
 	layout := ui.NewVBoxLayout()
 	layout.AddWidget(formWidget)
 	w.SetLayout(layout)
 
 	w.SetWindowTitle("初级线圈参数计算")
 	return w, nil
-	
-}
 
+}

@@ -2,18 +2,18 @@ package main
 
 import (
 	"errors"
-	"reflect"
 	"github.com/visualfc/goqt/ui"
 	"log"
+	"reflect"
 )
 
 type MainForm struct {
 	*ui.QWidget
-	btn1    *ui.QPushButton //
-	btn2    *ui.QPushButton
-	btn3	*ui.QPushButton
-	btn4	*ui.QPushButton
-	btn5	*ui.QPushButton
+	btn1 *ui.QPushButton //
+	btn2 *ui.QPushButton
+	btn3 *ui.QPushButton
+	btn4 *ui.QPushButton
+	btn5 *ui.QPushButton
 }
 
 func IsValidDriver(v ui.Driver) bool {
@@ -40,16 +40,16 @@ func NewMainForm() (*MainForm, error) {
 	w.btn3 = ui.NewPushButtonFromDriver(formWidget.FindChild("pushButton_3"))
 	w.btn4 = ui.NewPushButtonFromDriver(formWidget.FindChild("pushButton_4"))
 	w.btn5 = ui.NewPushButtonFromDriver(formWidget.FindChild("pushButton_5"))
-	
+
 	w.btn1.OnClicked(func() {
-		
+
 		primaryCoil, err := NewPrimaryCoilForm()
 		if err != nil {
 			log.Fatalln(err)
 		}
 		primaryCoil.Show()
 	})
-	
+
 	w.btn2.OnClicked(func() {
 		sphere, err := NewSphereForm()
 		if err != nil {
@@ -57,7 +57,7 @@ func NewMainForm() (*MainForm, error) {
 		}
 		sphere.Show()
 	})
-	
+
 	w.btn3.OnClicked(func() {
 		SecCoilInfoForm()
 	})
@@ -70,7 +70,6 @@ func NewMainForm() (*MainForm, error) {
 		CoefficientOfCouplinForm()
 	})
 
-
 	layout := ui.NewVBoxLayout()
 	layout.AddWidget(formWidget)
 	w.SetLayout(layout)
@@ -78,4 +77,3 @@ func NewMainForm() (*MainForm, error) {
 	w.SetWindowTitle("特斯拉线圈计算器")
 	return w, nil
 }
-	

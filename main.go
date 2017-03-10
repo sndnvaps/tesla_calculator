@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"log"
 	"github.com/visualfc/goqt/ui"
+	"log"
+	"os"
 	"runtime"
 )
 
@@ -34,4 +34,3 @@ func version() {
 	widget.SetLayout(hbox)
 	widget.Show()
 }
-

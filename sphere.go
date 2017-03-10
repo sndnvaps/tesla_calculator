@@ -2,10 +2,10 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"github.com/visualfc/goqt/ui"
 	"math"
 	"strconv"
-	"fmt"
 )
 
 type SphereForm struct {
