@@ -1,12 +1,36 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"github.com/visualfc/goqt/ui"
 	"math"
 	"strconv"
 	"strings"
 )
+
+type CoefficientForm struct {
+	*ui.QWidget
+	btn1 *ui.QPushButton // 计算按钮
+	le1  *ui.QLineEdit   //输入框 ->正向测量电感
+	le2  *ui.QLineEdit   //输入框 -> 反向测量电感
+	le3  *ui.QLineEdit   //输入框 -> 线圈电感L1
+	le4  *ui.QLineEdit   //输入框 -> 线圈电感L2
+
+	le5 *ui.QLineEdit //输出框
+	le6 *ui.QLineEdit //输出框
+
+	label_1 *ui.QLabel //
+	label_2 *ui.QLabel
+	label_3 *ui.QLabel
+	label_4 *ui.QLabel //
+	label_5 *ui.QLabel
+	label_6 *ui.QLabel
+	
+	picbox *ui.QLabel //用于放图片
+}
+
+
 
 /*  用于计算特斯拉线圈的互感系统及耦合系数
  *  //MutualInductance = (LForward - LReverse)/4
@@ -36,109 +60,75 @@ func GetMutualInductance(LForward, LReverse string) string {
 	return "0.0"
 }
 
-func CoefficientOfCouplinForm() {
 
-	label := ui.NewLabel()
-	label.SetText("正向测试电感值") //LForward
-	//输入框
-	inputBox := ui.NewLineEdit()
-	//------------------------------
-	label2 := ui.NewLabel()
-	label2.SetText("反向测试电感值") // LReverse
-	//输入框2
-	inputBox2 := ui.NewLineEdit()
+func NewCoefficientForm() (*CoefficientForm, error) {
+	w := &CoefficientForm{}
+	w.QWidget = ui.NewWidget()
 
-	label3 := ui.NewLabel()
-	label3.SetText("线圈电感L1")
-	//输入框3
-	inputBox3 := ui.NewLineEdit()
+	file := ui.NewFileWithName(":/forms/CoefficientForm.ui")
+	if !file.Open(ui.QIODevice_ReadOnly) {
+		return nil, errors.New("error load ui")
+	}
 
-	label4 := ui.NewLabel()
-	label4.SetText("线圈电感L2")
-	//输入框4
-	inputBox4 := ui.NewLineEdit()
+	loader := ui.NewUiLoader()
+	formWidget := loader.Load(file)
+	if formWidget == nil {
+		return nil, errors.New("error load form widget")
+	}
 
-	//计算结果
-	CalBtn := ui.NewPushButton()
-	CalBtn.SetText("计算")
+	w.btn1 = ui.NewPushButtonFromDriver(formWidget.FindChild("pushButton_1"))
 
-	//
-	label5 := ui.NewLabel()
-	label5.SetText("互感系数")
+	w.le1 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_1"))
+	w.le2 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_2"))
+	w.le3 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_3"))
+	w.le4 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_4"))
 
-	label6 := ui.NewLabel()
-	label6.SetText("耦合系数")
+	w.le5 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_5"))
+	w.le6 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_6"))
 
-	//用于显示输出的结果 显示耦合系数
-	CouplingDegree := ui.NewLineEdit()
-	CouplingDegree.SetReadOnly(true) //设置为只读模式
+	w.label_1 = ui.NewLabelFromDriver(formWidget.FindChild("label_1"))
+	w.label_2 = ui.NewLabelFromDriver(formWidget.FindChild("label_2"))
+	w.label_3 = ui.NewLabelFromDriver(formWidget.FindChild("label_3"))
+	w.label_4 = ui.NewLabelFromDriver(formWidget.FindChild("label_4"))
+	w.label_5 = ui.NewLabelFromDriver(formWidget.FindChild("label_5"))
+	w.label_6 = ui.NewLabelFromDriver(formWidget.FindChild("label_6"))
 
-	//用于显示互感系数
-	MutualInductance := ui.NewLineEdit()
-	MutualInductance.SetReadOnly(true)
+	w.picbox = ui.NewLabelFromDriver(formWidget.FindChild("pic_label_1"))
 
-	//点击，计算按钮的时候，把 inputbox + input2的内容， 连接起来，并显示在 CouplingDegree里面
-	CalBtn.OnClicked(func() {
-		CouplingDegree.Clear()
-		MutualInductance.Clear()
-		text := CoefficientOfCouplingCal(inputBox.Text(), inputBox2.Text(), inputBox3.Text(), inputBox4.Text())
-		text2 := GetMutualInductance(inputBox.Text(), inputBox2.Text())
-		CouplingDegree.SetText(text)
-		MutualInductance.SetText(text2)
-	})
-
-	//------------------开始画图部分---------------------
-	//准备显示图片
-	picboxLabel := ui.NewLabel()
+	//设置为只读
+	w.le5.SetReadOnly(true)
+	w.le6.SetReadOnly(true)
 
 	ImageBox := ui.NewPixmap()
-	ImageBox.Load(":/images/CouplingDegree.jpg") //先加载图片
+	ImageBox.Load(":/images/CouplingDegree.png") //先加载图片 CouplingDegree
 
-	picboxLabel.SetPixmap(ImageBox)
-	//---------------结束画图部分----------------------
+	w.picbox.SetPixmap(ImageBox)
 
-	hbox := ui.NewHBoxLayout()
-	hbox.AddWidget(label)
-	hbox.AddWidget(inputBox)
+	w.btn1.OnClicked(func() {
+		if (strings.Compare(w.le1.Text(), "") != 0) && (strings.Compare(w.le2.Text(), "") != 0) &&
+			(strings.Compare(w.le3.Text(), "") != 0) && (strings.Compare(w.le4.Text(), "") != 0) {
+			coc := CoefficientOfCouplingCal(w.le1.Text(), w.le2.Text(), w.le3.Text(), w.le4.Text())
+			Inductance  := GetMutualInductance(w.le1.Text(), w.le2.Text())
+			w.le5.SetText(coc)
+			w.le6.SetText(Inductance)
+		} else {
+			messagebox := ui.NewMessageBox()
+			messagebox.SetText("必须要同时输入4个数值")
+			messagebox.Show()
+			w.le1.Clear()
+			w.le2.Clear()
+			w.le3.Clear()
+			w.le4.Clear()
+			w.le4.Clear()
+			w.le5.Clear()
+			w.le6.Clear()
+		}
+	})
 
-	hbox2 := ui.NewHBoxLayout()
-	hbox2.AddWidget(label2)
-	hbox2.AddWidget(inputBox2)
+	layout := ui.NewVBoxLayout()
+	layout.AddWidget(formWidget)
+	w.SetLayout(layout)
 
-	hbox3 := ui.NewHBoxLayout()
-	hbox3.AddWidget(label3)
-	hbox3.AddWidget(inputBox3)
-
-	hbox4 := ui.NewHBoxLayout()
-	hbox4.AddWidget(label4)
-	hbox4.AddWidget(inputBox4)
-
-	hbox5 := ui.NewHBoxLayout()
-	hbox5.AddWidget(label5)
-	hbox5.AddWidget(MutualInductance)
-
-	hbox6 := ui.NewHBoxLayout()
-	hbox6.AddWidget(label6)
-	hbox6.AddWidget(CouplingDegree)
-
-	hbox7 := ui.NewHBoxLayout()
-	hbox7.AddWidget(CalBtn)
-
-	hbox8 := ui.NewHBoxLayout()
-	hbox8.AddWidget(picboxLabel) //显示图片
-
-	vbox := ui.NewVBoxLayout()
-	vbox.AddStretchWithStretch(1)
-	vbox.AddLayout(hbox)
-	vbox.AddLayout(hbox2)
-	vbox.AddLayout(hbox3)
-	vbox.AddLayout(hbox4)
-	vbox.AddLayout(hbox5)
-	vbox.AddLayout(hbox6)
-	vbox.AddLayout(hbox7)
-	vbox.AddLayout(hbox8)
-
-	widget := ui.NewWidget()
-	widget.SetLayout(vbox)
-	widget.Show()
+	w.SetWindowTitle("耦合系数计算器")
+	return w, nil
 }

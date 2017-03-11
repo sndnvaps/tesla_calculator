@@ -67,7 +67,11 @@ func NewMainForm() (*MainForm, error) {
 	})
 
 	w.btn5.OnClicked(func() {
-		CoefficientOfCouplinForm()
+		cc, err  := NewCoefficientForm()
+		if err != nil {
+			log.Fatalln(err)
+		}
+		cc.Show()
 	})
 
 	layout := ui.NewVBoxLayout()
