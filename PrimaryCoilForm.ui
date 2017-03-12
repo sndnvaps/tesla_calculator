@@ -182,12 +182,12 @@
     <rect>
      <x>20</x>
      <y>100</y>
-     <width>71</width>
+     <width>101</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>匝间距(S)</string>
+    <string>匝间距(S)(mm)</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_5">
