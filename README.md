@@ -12,3 +12,6 @@
 
     1. 添加计算次级线圈品质系数（Q）的计算功能， 公式为
                  Q = (2*Pi*f*L)/R
+                 
+## License
+#### [MIT](https://sndnvaps.mit-license.org/2017)
