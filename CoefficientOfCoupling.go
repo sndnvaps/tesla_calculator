@@ -1,7 +1,7 @@
 package main
 
 import (
-	"errors"
+	//"errors"
 	"fmt"
 	"github.com/visualfc/goqt/ui"
 	"math"
@@ -62,45 +62,49 @@ func GetMutualInductance(LForward, LReverse string) string {
 
 
 func NewCoefficientForm() (*CoefficientForm, error) {
+
 	w := &CoefficientForm{}
 	w.QWidget = ui.NewWidget()
 
-	file := ui.NewFileWithName(":/forms/CoefficientForm.ui")
-	if !file.Open(ui.QIODevice_ReadOnly) {
-		return nil, errors.New("error load ui")
-	}
+    w.btn1 = ui.NewPushButton()
+    w.btn1.SetText("计算")
 
-	loader := ui.NewUiLoader()
-	formWidget := loader.Load(file)
-	if formWidget == nil {
-		return nil, errors.New("error load form widget")
-	}
+    w.label_1 = ui.NewLabel()
+    w.label_1.SetText("正向测试电感值")
+    w.le1 = ui.NewLineEdit()
 
-	w.btn1 = ui.NewPushButtonFromDriver(formWidget.FindChild("pushButton_1"))
+    w.label_2 = ui.NewLabel()
+    w.label_2.SetText("反向测试电感值")
+    w.le2 = ui.NewLineEdit()
 
-	w.le1 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_1"))
-	w.le2 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_2"))
-	w.le3 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_3"))
-	w.le4 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_4"))
+    w.label_3 = ui.NewLabel()
+    w.label_3.SetText("线圈电感L1")
+    w.le3 = ui.NewLineEdit()
 
-	w.le5 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_5"))
-	w.le6 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_6"))
+    w.label_4 = ui.NewLabel()
+    w.label_4.SetText("线圈电感L2")
+    w.le4 = ui.NewLineEdit()
 
-	w.label_1 = ui.NewLabelFromDriver(formWidget.FindChild("label_1"))
-	w.label_2 = ui.NewLabelFromDriver(formWidget.FindChild("label_2"))
-	w.label_3 = ui.NewLabelFromDriver(formWidget.FindChild("label_3"))
-	w.label_4 = ui.NewLabelFromDriver(formWidget.FindChild("label_4"))
-	w.label_5 = ui.NewLabelFromDriver(formWidget.FindChild("label_5"))
-	w.label_6 = ui.NewLabelFromDriver(formWidget.FindChild("label_6"))
+    w.label_5 = ui.NewLabel()
+    w.label_5.SetText("互感系数")
+    w.le5 = ui.NewLineEdit()
 
-	w.picbox = ui.NewLabelFromDriver(formWidget.FindChild("pic_label_1"))
+    w.label_6 = ui.NewLabel()
+    w.label_6.SetText("耦合系数")
+    w.le6 = ui.NewLineEdit()
+
+
+    w.picbox = ui.NewLabel()
+
 
 	//设置为只读
 	w.le5.SetReadOnly(true)
 	w.le6.SetReadOnly(true)
 
 	ImageBox := ui.NewPixmap()
-	ImageBox.Load(":/images/CouplingDegree.png") //先加载图片 CouplingDegree
+    imgData, _ := Asset("images/CouplingDegree.png")
+    ImageBox.LoadFromData(imgData)
+	//ImageBox.Load(":/images/CouplingDegree.png") //先加载图片 CouplingDegree
 
 	w.picbox.SetPixmap(ImageBox)
 
@@ -125,9 +129,51 @@ func NewCoefficientForm() (*CoefficientForm, error) {
 		}
 	})
 
-	layout := ui.NewVBoxLayout()
-	layout.AddWidget(formWidget)
-	w.SetLayout(layout)
+
+    hbox := ui.NewHBoxLayout()
+    hbox.AddWidget(w.label_1)
+    hbox.AddWidget(w.le1)
+
+    hbox2 := ui.NewHBoxLayout()
+    hbox2.AddWidget(w.label_2)
+    hbox2.AddWidget(w.le2)
+
+    hbox3 := ui.NewHBoxLayout()
+    hbox3.AddWidget(w.label_3)
+    hbox3.AddWidget(w.le3)
+
+    hbox4 := ui.NewHBoxLayout()
+    hbox4.AddWidget(w.label_4)
+    hbox4.AddWidget(w.le4)
+
+    hbox5 := ui.NewHBoxLayout()
+    hbox5.AddWidget(w.btn1)
+
+    hbox6 := ui.NewHBoxLayout()
+    hbox6.AddWidget(w.label_5)
+    hbox6.AddWidget(w.le5)
+
+    hbox7 := ui.NewHBoxLayout()
+    hbox7.AddWidget(w.label_6)
+    hbox7.AddWidget(w.le6)
+
+    hbox8 := ui.NewHBoxLayout()
+    hbox8.AddWidget(w.picbox)
+
+    vboxL := ui.NewVBoxLayout()
+	vboxL.AddLayout(hbox)
+	vboxL.AddLayout(hbox2)
+	vboxL.AddLayout(hbox3)
+	vboxL.AddLayout(hbox4)
+	vboxL.AddLayout(hbox5)
+	vboxL.AddLayout(hbox6)
+	vboxL.AddLayout(hbox7)
+
+    hboxMain := ui.NewHBoxLayout()
+    hboxMain.AddLayout(vboxL)
+    hboxMain.AddLayout(hbox8)
+
+	w.SetLayout(hboxMain)
 
 	w.SetWindowTitle("耦合系数计算器")
 	return w, nil

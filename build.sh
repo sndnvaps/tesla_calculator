@@ -1,3 +1,2 @@
 #!/bin/sh
-goqt_rcc -go main -o tc_qrc.go tc.qrc
-go build -ldflags "-r ." -o Tesla_calculator
+go build -ldflags "-r ." -o tesla_calculator main.go mainform.go CoefficientOfCoupling.go PrimaryCoilForm.go SecCoilInfo.go SparkLength.go sphere.go images_bindata.go

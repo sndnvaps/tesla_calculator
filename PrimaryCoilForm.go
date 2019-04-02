@@ -1,7 +1,7 @@
 package main
 
 import (
-	"errors"
+	//"errors"
 	"fmt"
 	"github.com/visualfc/goqt/ui"
 	"math"
@@ -219,42 +219,48 @@ func CalPrimaryCoilInfo(D, N, W, S string) [4]string {
 	return output
 }
 func NewPrimaryCoilForm() (*PrimaryCoilForm, error) {
+
 	w := &PrimaryCoilForm{}
 	w.QWidget = ui.NewWidget()
 
-	file := ui.NewFileWithName(":/forms/PrimaryCoilForm.ui")
-	if !file.Open(ui.QIODevice_ReadOnly) {
-		return nil, errors.New("error load ui")
-	}
+	w.btn1 = ui.NewPushButton()
+    w.btn1.SetText("计算")
 
-	loader := ui.NewUiLoader()
-	formWidget := loader.Load(file)
-	if formWidget == nil {
-		return nil, errors.New("error load form widget")
-	}
+    w.label_1 = ui.NewLabel()
+    w.label_1.SetText("螺线管直径(D)(mm)")
+    w.le1 = ui.NewLineEdit()
 
-	w.btn1 = ui.NewPushButtonFromDriver(formWidget.FindChild("pushButton_1"))
+    w.label_2 = ui.NewLabel()
+    w.label_2.SetText("线圈匝数(N)")
+    w.le2 = ui.NewLineEdit()
 
-	w.le1 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_1"))
-	w.le2 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_2"))
-	w.le3 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_3"))
-	w.le4 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_4"))
+    w.label_3 = ui.NewLabel()
+    w.label_3.SetText("绕线线经 (W)(mm)")
+    w.le3 = ui.NewLineEdit()
 
-	w.le5 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_5"))
-	w.le6 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_6"))
-	w.le7 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_7"))
-	w.le8 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_8"))
+    w.label_4 = ui.NewLabel()
+    w.label_4.SetText("匝间距(S)(mm)")
+    w.le4 = ui.NewLineEdit()
 
-	w.label_1 = ui.NewLabelFromDriver(formWidget.FindChild("label_1"))
-	w.label_2 = ui.NewLabelFromDriver(formWidget.FindChild("label_2"))
-	w.label_3 = ui.NewLabelFromDriver(formWidget.FindChild("label_3"))
-	w.label_4 = ui.NewLabelFromDriver(formWidget.FindChild("label_4"))
-	w.label_5 = ui.NewLabelFromDriver(formWidget.FindChild("label_5"))
-	w.label_6 = ui.NewLabelFromDriver(formWidget.FindChild("label_6"))
-	w.label_7 = ui.NewLabelFromDriver(formWidget.FindChild("label_7"))
-	w.label_8 = ui.NewLabelFromDriver(formWidget.FindChild("label_8"))
+    w.label_5 = ui.NewLabel()
+    w.label_5.SetText("螺线管高度(H)(mm)")
+    w.le5 = ui.NewLineEdit()
 
-	w.picbox = ui.NewLabelFromDriver(formWidget.FindChild("pic_label_1"))
+    w.label_6 = ui.NewLabel()
+    w.label_6.SetText("漆包线长度(米)")
+    w.le6 = ui.NewLineEdit()
+
+
+    w.label_7 = ui.NewLabel()
+    w.label_7.SetText("电感量(L)(uH)")
+    w.le7 = ui.NewLineEdit()
+
+    w.label_8 = ui.NewLabel()
+    w.label_8.SetText("寄生电容(pf)")
+    w.le8 = ui.NewLineEdit()
+
+   w.picbox = ui.NewLabel()
+
 
 	//设置为只读
 	w.le5.SetReadOnly(true)
@@ -263,7 +269,8 @@ func NewPrimaryCoilForm() (*PrimaryCoilForm, error) {
 	w.le8.SetReadOnly(true)
 
 	ImageBox := ui.NewPixmap()
-	ImageBox.Load(":/images/helix_fig.png") //先加载图片
+    imgData, _ := Asset("images/helix_fig.png")//先加载图片
+    ImageBox.LoadFromData(imgData)
 
 	w.picbox.SetPixmap(ImageBox)
 
@@ -291,9 +298,60 @@ func NewPrimaryCoilForm() (*PrimaryCoilForm, error) {
 		}
 	})
 
-	layout := ui.NewVBoxLayout()
-	layout.AddWidget(formWidget)
-	w.SetLayout(layout)
+  hbox := ui.NewHBoxLayout()
+    hbox.AddWidget(w.label_1)
+    hbox.AddWidget(w.le1)
+
+    hbox2 := ui.NewHBoxLayout()
+    hbox2.AddWidget(w.label_2)
+    hbox2.AddWidget(w.le2)
+
+    hbox3 := ui.NewHBoxLayout()
+    hbox3.AddWidget(w.label_3)
+    hbox3.AddWidget(w.le3)
+
+    hbox4 := ui.NewHBoxLayout()
+    hbox4.AddWidget(w.label_4)
+    hbox4.AddWidget(w.le4)
+
+    hbox5 := ui.NewHBoxLayout()
+    hbox5.AddWidget(w.btn1)
+
+    hbox6 := ui.NewHBoxLayout()
+    hbox6.AddWidget(w.label_5)
+    hbox6.AddWidget(w.le5)
+
+    hbox7 := ui.NewHBoxLayout()
+    hbox7.AddWidget(w.label_6)
+    hbox7.AddWidget(w.le6)
+
+    hbox8 := ui.NewHBoxLayout()
+    hbox8.AddWidget(w.label_7)
+    hbox8.AddWidget(w.le7)
+
+    hbox9 := ui.NewHBoxLayout()
+    hbox9.AddWidget(w.label_8)
+    hbox9.AddWidget(w.le8)
+
+    hbox10 := ui.NewHBoxLayout()
+    hbox10.AddWidget(w.picbox)
+
+    vboxL := ui.NewVBoxLayout()
+	vboxL.AddLayout(hbox)
+	vboxL.AddLayout(hbox2)
+	vboxL.AddLayout(hbox3)
+	vboxL.AddLayout(hbox4)
+	vboxL.AddLayout(hbox5)
+	vboxL.AddLayout(hbox6)
+	vboxL.AddLayout(hbox7)
+	vboxL.AddLayout(hbox8)
+	vboxL.AddLayout(hbox9)
+
+    hboxMain := ui.NewHBoxLayout()
+    hboxMain.AddLayout(vboxL)
+    hboxMain.AddLayout(hbox10)
+
+	w.SetLayout(hboxMain)
 
 	w.SetWindowTitle("初级线圈参数计算")
 	return w, nil

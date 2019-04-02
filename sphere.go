@@ -1,7 +1,7 @@
 package main
 
 import (
-	"errors"
+	//"errors"
 	"fmt"
 	"github.com/visualfc/goqt/ui"
 	"math"
@@ -53,26 +53,21 @@ func calccapacitance(radius string) string {
 }
 
 func NewSphereForm() (*SphereForm, error) {
-	w := &SphereForm{}
+ 
+   	w := &SphereForm{}
 	w.QWidget = ui.NewWidget()
 
-	file := ui.NewFileWithName(":/forms/sphere.ui")
-	if !file.Open(ui.QIODevice_ReadOnly) {
-		return nil, errors.New("error load ui")
-	}
+    w.btn1 = ui.NewPushButton()
+    w.btn1.SetText("Calculate")
+    
+    w.label_1 = ui.NewLabel()
+    w.label_1.SetText("Radius(mm)")
+    w.le1 = ui.NewLineEdit()
 
-	loader := ui.NewUiLoader()
-	formWidget := loader.Load(file)
-	if formWidget == nil {
-		return nil, errors.New("error load form widget")
-	}
+    w.label_2 = ui.NewLabel()
+    w.label_2.SetText("Cap(pf)")
+    w.le2 = ui.NewLineEdit()
 
-	w.btn1 = ui.NewPushButtonFromDriver(formWidget.FindChild("pushButton_1"))
-	w.le1 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_1"))
-	w.le2 = ui.NewLineEditFromDriver(formWidget.FindChild("lineEdit_2"))
-	w.label_1 = ui.NewLabelFromDriver(formWidget.FindChild("label_1"))
-	w.label_2 = ui.NewLabelFromDriver(formWidget.FindChild("label_2"))
-	w.label_3 = ui.NewLabelFromDriver(formWidget.FindChild("label_3"))
 
 	//设置 le2 为只读模式
 	w.le2.SetReadOnly(true)
@@ -90,9 +85,26 @@ func NewSphereForm() (*SphereForm, error) {
 		}
 	})
 
-	layout := ui.NewVBoxLayout()
-	layout.AddWidget(formWidget)
-	w.SetLayout(layout)
+
+
+    hbox := ui.NewHBoxLayout()
+    hbox.AddWidget(w.label_1)
+    hbox.AddWidget(w.le1)
+
+    hbox2 := ui.NewHBoxLayout()
+    hbox2.AddWidget(w.label_2)
+    hbox2.AddWidget(w.le2)
+
+    hbox3 := ui.NewHBoxLayout()
+    hbox3.AddWidget(w.btn1)
+
+
+    vbox := ui.NewVBoxLayout()
+	vbox.AddLayout(hbox)
+	vbox.AddLayout(hbox2)
+	vbox.AddLayout(hbox3)
+
+	w.SetLayout(vbox)
 
 	w.SetWindowTitle("球形电容容量计算")
 	return w, nil

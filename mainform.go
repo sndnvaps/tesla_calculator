@@ -1,11 +1,12 @@
 package main
 
 import (
-	"errors"
+	//"errors"
 	"github.com/visualfc/goqt/ui"
 	"log"
 	"reflect"
 )
+
 
 type MainWindowForm struct {
 	*ui.QMainWindow
@@ -31,6 +32,7 @@ func NewMainWindow() *MainWindowForm {
 	w.InstallEventFilter(w)
 
 	w.widget, _ = NewMainForm()
+    
 	w.SetCentralWidget(w.widget)
 	w.createActions()
 
@@ -61,25 +63,25 @@ func (w *MainWindowForm) createActions() {
 }
 
 func NewMainForm() (*MainForm, error) {
+
 	w := &MainForm{}
 	w.QWidget = ui.NewWidget()
 
-	file := ui.NewFileWithName(":/forms/mainform.ui")
-	if !file.Open(ui.QIODevice_ReadOnly) {
-		return nil, errors.New("error load ui")
-	}
+    w.btn1 = ui.NewPushButton()
+    w.btn1.SetText("计算初始参数")
+    
+    w.btn2 = ui.NewPushButton()
+    w.btn2.SetText("计算顶端电容")
 
-	loader := ui.NewUiLoader()
-	formWidget := loader.Load(file)
-	if formWidget == nil {
-		return nil, errors.New("error load form widget")
-	}
+    w.btn3 = ui.NewPushButton()
+    w.btn3.SetText("计算次级线圈参数")
 
-	w.btn1 = ui.NewPushButtonFromDriver(formWidget.FindChild("pushButton_1"))
-	w.btn2 = ui.NewPushButtonFromDriver(formWidget.FindChild("pushButton_2"))
-	w.btn3 = ui.NewPushButtonFromDriver(formWidget.FindChild("pushButton_3"))
-	w.btn4 = ui.NewPushButtonFromDriver(formWidget.FindChild("pushButton_4"))
-	w.btn5 = ui.NewPushButtonFromDriver(formWidget.FindChild("pushButton_5"))
+    w.btn4 = ui.NewPushButton()
+    w.btn4.SetText("估算电弧长度")
+
+    w.btn5 = ui.NewPushButton()
+    w.btn5.SetText("计算初级与次级的耦合度")
+
 
 	w.btn1.OnClicked(func() {
 
@@ -114,10 +116,24 @@ func NewMainForm() (*MainForm, error) {
 		cc.Show()
 	})
 
-	layout := ui.NewVBoxLayout()
-	layout.AddWidget(formWidget)
-	w.SetLayout(layout)
+    hbox := ui.NewHBoxLayout()
+    hbox.AddWidget(w.btn1)
+    hbox.AddWidget(w.btn2)
 
+    hbox2 := ui.NewHBoxLayout()
+    hbox2.AddWidget(w.btn3)
+    hbox2.AddWidget(w.btn4)
+
+    hbox3 := ui.NewHBoxLayout()
+    hbox3.AddWidget(w.btn5)
+
+    vbox := ui.NewVBoxLayout()
+	vbox.AddLayout(hbox)
+	vbox.AddLayout(hbox2)
+	vbox.AddLayout(hbox3)
+
+    w.SetLayout(vbox)
 	w.SetWindowTitle("特斯拉线圈计算器")
 	return w, nil
+    
 }

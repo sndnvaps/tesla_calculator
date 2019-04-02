@@ -1,2 +1,2 @@
 goqt_rcc -go main -o tc_qrc.go tc.qrc
-go build -ldflags "-H windowsgui" -o Tesla_calculator.exe
+go build -ldflags "-H windowsgui" -o tesla_calculator.exe
