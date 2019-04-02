@@ -16,6 +16,13 @@ Need to use [go-bindata](https://github.com/go-bindata/go-bindata)
 
     1. 添加计算次级线圈品质系数（Q）的计算功能， 公式为
                  Q = (2*Pi*f*L)/R
-                 
+
+
+Support platform(Qt 5.11.1)
+   Linux
+   Windows
+   Raspberry pi 3b(not test other pi)
+ 
+
 ## License
 #### [MIT](https://sndnvaps.mit-license.org/2017)
