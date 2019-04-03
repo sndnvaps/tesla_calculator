@@ -32,7 +32,7 @@ func NewMainWindow() *MainWindowForm {
 	w.InstallEventFilter(w)
 
 	w.widget, _ = NewMainForm()
-    
+
 	w.SetCentralWidget(w.widget)
 	w.createActions()
 
@@ -66,6 +66,9 @@ func NewMainForm() (*MainForm, error) {
 
 	w := &MainForm{}
 	w.QWidget = ui.NewWidget()
+
+    w.SetFixedWidth(331)
+    w.SetFixedHeight(233)
 
     w.btn1 = ui.NewPushButton()
     w.btn1.SetText("计算初始参数")
