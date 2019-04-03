@@ -35,6 +35,12 @@ Support platform(Qt 5.11.1)
    3. 再安装[goqt](https://github.com/visualfc/goqt)
    4. 执行编译命令 build.[bat|sh] 根据不同的平台进行选择
    5. 最终编译得到的程序为*tesla_calculator*
+
+App Pics
+
+![pic1](pictures/pic_mainform.png)
+
+![pic2](pictures/pic_all_forms.png)
    
 ## License
 #### [MIT](https://sndnvaps.mit-license.org/2017)
