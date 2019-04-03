@@ -53,21 +53,20 @@ func calccapacitance(radius string) string {
 }
 
 func NewSphereForm() (*SphereForm, error) {
- 
-   	w := &SphereForm{}
+
+	w := &SphereForm{}
 	w.QWidget = ui.NewWidget()
 
-    w.btn1 = ui.NewPushButton()
-    w.btn1.SetText("Calculate")
-    
-    w.label_1 = ui.NewLabel()
-    w.label_1.SetText("Radius(mm)")
-    w.le1 = ui.NewLineEdit()
+	w.btn1 = ui.NewPushButton()
+	w.btn1.SetText("Calculate")
 
-    w.label_2 = ui.NewLabel()
-    w.label_2.SetText("Cap(pf)")
-    w.le2 = ui.NewLineEdit()
+	w.label_1 = ui.NewLabel()
+	w.label_1.SetText("Radius(mm)")
+	w.le1 = ui.NewLineEdit()
 
+	w.label_2 = ui.NewLabel()
+	w.label_2.SetText("Cap(pf)")
+	w.le2 = ui.NewLineEdit()
 
 	//设置 le2 为只读模式
 	w.le2.SetReadOnly(true)
@@ -85,21 +84,18 @@ func NewSphereForm() (*SphereForm, error) {
 		}
 	})
 
+	hbox := ui.NewHBoxLayout()
+	hbox.AddWidget(w.label_1)
+	hbox.AddWidget(w.le1)
 
+	hbox2 := ui.NewHBoxLayout()
+	hbox2.AddWidget(w.label_2)
+	hbox2.AddWidget(w.le2)
 
-    hbox := ui.NewHBoxLayout()
-    hbox.AddWidget(w.label_1)
-    hbox.AddWidget(w.le1)
+	hbox3 := ui.NewHBoxLayout()
+	hbox3.AddWidget(w.btn1)
 
-    hbox2 := ui.NewHBoxLayout()
-    hbox2.AddWidget(w.label_2)
-    hbox2.AddWidget(w.le2)
-
-    hbox3 := ui.NewHBoxLayout()
-    hbox3.AddWidget(w.btn1)
-
-
-    vbox := ui.NewVBoxLayout()
+	vbox := ui.NewVBoxLayout()
 	vbox.AddLayout(hbox)
 	vbox.AddLayout(hbox2)
 	vbox.AddLayout(hbox3)

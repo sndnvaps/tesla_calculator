@@ -15,21 +15,21 @@ func NewToploadForm() (*ToploadForm, error) {
 	w := &ToploadForm{}
 	w.QWidget = ui.NewWidget()
 
-    w.SetFixedWidth(200)
-    w.SetFixedHeight(80)
+	w.SetFixedWidth(200)
+	w.SetFixedHeight(80)
 
-    w.btn1 = ui.NewPushButton()
-    w.btn1.SetText("Toroid Cap")
-    
-    w.btn2 = ui.NewPushButton()
-    w.btn2.SetText("Sphere Cap")
+	w.btn1 = ui.NewPushButton()
+	w.btn1.SetText("Toroid Cap")
+
+	w.btn2 = ui.NewPushButton()
+	w.btn2.SetText("Sphere Cap")
 
 	w.btn1.OnClicked(func() {
-        toroid, err := NewToroidForm()
-        if err != nil {
-            log.Fatalln(err)
-        }
-        toroid.Show()
+		toroid, err := NewToroidForm()
+		if err != nil {
+			log.Fatalln(err)
+		}
+		toroid.Show()
 	})
 
 	w.btn2.OnClicked(func() {
@@ -41,16 +41,15 @@ func NewToploadForm() (*ToploadForm, error) {
 		sphere.Show()
 	})
 
-    hbox := ui.NewHBoxLayout()
-    hbox.AddWidget(w.btn1)
-    hbox.AddWidget(w.btn2)
+	hbox := ui.NewHBoxLayout()
+	hbox.AddWidget(w.btn1)
+	hbox.AddWidget(w.btn2)
 
-    vbox := ui.NewVBoxLayout()
+	vbox := ui.NewVBoxLayout()
 	vbox.AddLayout(hbox)
 
-    w.SetLayout(vbox)
+	w.SetLayout(vbox)
 	w.SetWindowTitle("Topload Cap Calculator")
 
-    return w,nil
+	return w, nil
 }
-

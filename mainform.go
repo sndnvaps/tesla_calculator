@@ -7,7 +7,6 @@ import (
 	"reflect"
 )
 
-
 type MainWindowForm struct {
 	*ui.QMainWindow
 	widget *MainForm //我们要加载 MainForm 到这里
@@ -67,24 +66,23 @@ func NewMainForm() (*MainForm, error) {
 	w := &MainForm{}
 	w.QWidget = ui.NewWidget()
 
-    w.SetFixedWidth(331)
-    w.SetFixedHeight(233)
+	w.SetFixedWidth(331)
+	w.SetFixedHeight(233)
 
-    w.btn1 = ui.NewPushButton()
-    w.btn1.SetText("计算初始参数")
-    
-    w.btn2 = ui.NewPushButton()
-    w.btn2.SetText("计算顶端电容")
+	w.btn1 = ui.NewPushButton()
+	w.btn1.SetText("计算初始参数")
 
-    w.btn3 = ui.NewPushButton()
-    w.btn3.SetText("计算次级线圈参数")
+	w.btn2 = ui.NewPushButton()
+	w.btn2.SetText("计算顶端电容")
 
-    w.btn4 = ui.NewPushButton()
-    w.btn4.SetText("估算电弧长度")
+	w.btn3 = ui.NewPushButton()
+	w.btn3.SetText("计算次级线圈参数")
 
-    w.btn5 = ui.NewPushButton()
-    w.btn5.SetText("计算初级与次级的耦合度")
+	w.btn4 = ui.NewPushButton()
+	w.btn4.SetText("估算电弧长度")
 
+	w.btn5 = ui.NewPushButton()
+	w.btn5.SetText("计算初级与次级的耦合度")
 
 	w.btn1.OnClicked(func() {
 
@@ -97,11 +95,11 @@ func NewMainForm() (*MainForm, error) {
 
 	w.btn2.OnClicked(func() {
 
-        topload, err := NewToploadForm()
-        if err != nil {
-            log.Fatalln(err)
-        }
-        topload.Show()
+		topload, err := NewToploadForm()
+		if err != nil {
+			log.Fatalln(err)
+		}
+		topload.Show()
 	})
 
 	w.btn3.OnClicked(func() {
@@ -120,24 +118,24 @@ func NewMainForm() (*MainForm, error) {
 		cc.Show()
 	})
 
-    hbox := ui.NewHBoxLayout()
-    hbox.AddWidget(w.btn1)
-    hbox.AddWidget(w.btn2)
+	hbox := ui.NewHBoxLayout()
+	hbox.AddWidget(w.btn1)
+	hbox.AddWidget(w.btn2)
 
-    hbox2 := ui.NewHBoxLayout()
-    hbox2.AddWidget(w.btn3)
-    hbox2.AddWidget(w.btn4)
+	hbox2 := ui.NewHBoxLayout()
+	hbox2.AddWidget(w.btn3)
+	hbox2.AddWidget(w.btn4)
 
-    hbox3 := ui.NewHBoxLayout()
-    hbox3.AddWidget(w.btn5)
+	hbox3 := ui.NewHBoxLayout()
+	hbox3.AddWidget(w.btn5)
 
-    vbox := ui.NewVBoxLayout()
+	vbox := ui.NewVBoxLayout()
 	vbox.AddLayout(hbox)
 	vbox.AddLayout(hbox2)
 	vbox.AddLayout(hbox3)
 
-    w.SetLayout(vbox)
+	w.SetLayout(vbox)
 	w.SetWindowTitle("特斯拉线圈计算器")
 	return w, nil
-    
+
 }

@@ -25,11 +25,9 @@ type CoefficientForm struct {
 	label_4 *ui.QLabel //
 	label_5 *ui.QLabel
 	label_6 *ui.QLabel
-	
+
 	picbox *ui.QLabel //用于放图片
 }
-
-
 
 /*  用于计算特斯拉线圈的互感系统及耦合系数
  *  //MutualInductance = (LForward - LReverse)/4
@@ -59,59 +57,57 @@ func GetMutualInductance(LForward, LReverse string) string {
 	return "0.0"
 }
 
-
 func NewCoefficientForm() (*CoefficientForm, error) {
 
 	w := &CoefficientForm{}
 	w.QWidget = ui.NewWidget()
-    //w.SetFixedWidth(700)
-    //w.SetFixedHeight(280)
+	//w.SetFixedWidth(700)
+	//w.SetFixedHeight(280)
 
-    w.btn1 = ui.NewPushButton()
-    w.btn1.SetText("计算")
+	w.btn1 = ui.NewPushButton()
+	w.btn1.SetText("计算")
 
-    w.label_1 = ui.NewLabel()
-    w.label_1.SetText("正向测试电感值")
-    w.le1 = ui.NewLineEdit()
-    //QWidget::setGeometry(int,int,int,int)
-    //w.le1.SetGeometryWithXYWidthHeight(150,10,113,20)
+	w.label_1 = ui.NewLabel()
+	w.label_1.SetText("正向测试电感值")
+	w.le1 = ui.NewLineEdit()
+	//QWidget::setGeometry(int,int,int,int)
+	//w.le1.SetGeometryWithXYWidthHeight(150,10,113,20)
 
-    w.label_2 = ui.NewLabel()
-    w.label_2.SetText("反向测试电感值")
-    w.le2 = ui.NewLineEdit()
-    //w.le2.SetGeometryWithXYWidthHeight(150,40,113,20)
+	w.label_2 = ui.NewLabel()
+	w.label_2.SetText("反向测试电感值")
+	w.le2 = ui.NewLineEdit()
+	//w.le2.SetGeometryWithXYWidthHeight(150,40,113,20)
 
-    w.label_3 = ui.NewLabel()
-    w.label_3.SetText("线圈电感L1")
-    //w.label_3.SetGeometryWithXYWidthHeight(20,70,111,20)
-    w.le3 = ui.NewLineEdit()
-    //w.le3.SetGeometryWithXYWidthHeight(150,70,113,20)
+	w.label_3 = ui.NewLabel()
+	w.label_3.SetText("线圈电感L1")
+	//w.label_3.SetGeometryWithXYWidthHeight(20,70,111,20)
+	w.le3 = ui.NewLineEdit()
+	//w.le3.SetGeometryWithXYWidthHeight(150,70,113,20)
 
-    w.label_4 = ui.NewLabel()
-    w.label_4.SetText("线圈电感L2")
-    w.le4 = ui.NewLineEdit()
-    //w.le4.SetGeometryWithXYWidthHeight(150,100,113,20)
+	w.label_4 = ui.NewLabel()
+	w.label_4.SetText("线圈电感L2")
+	w.le4 = ui.NewLineEdit()
+	//w.le4.SetGeometryWithXYWidthHeight(150,100,113,20)
 
-    w.label_5 = ui.NewLabel()
-    w.label_5.SetText("互感系数")
-    w.le5 = ui.NewLineEdit()
-    //w.le5.SetGeometryWithXYWidthHeight(150,170,113,20)
+	w.label_5 = ui.NewLabel()
+	w.label_5.SetText("互感系数")
+	w.le5 = ui.NewLineEdit()
+	//w.le5.SetGeometryWithXYWidthHeight(150,170,113,20)
 
-    w.label_6 = ui.NewLabel()
-    w.label_6.SetText("耦合系数")
-    w.le6 = ui.NewLineEdit()
-    //w.le6.SetGeometryWithXYWidthHeight(150,200,113,20)
+	w.label_6 = ui.NewLabel()
+	w.label_6.SetText("耦合系数")
+	w.le6 = ui.NewLineEdit()
+	//w.le6.SetGeometryWithXYWidthHeight(150,200,113,20)
 
-    w.picbox = ui.NewLabel()
-
+	w.picbox = ui.NewLabel()
 
 	//设置为只读
 	w.le5.SetReadOnly(true)
 	w.le6.SetReadOnly(true)
 
 	ImageBox := ui.NewPixmap()
-    imgData, _ := Asset("images/CouplingDegree.png")
-    ImageBox.LoadFromData(imgData)
+	imgData, _ := Asset("images/CouplingDegree.png")
+	ImageBox.LoadFromData(imgData)
 
 	w.picbox.SetPixmap(ImageBox)
 
@@ -119,7 +115,7 @@ func NewCoefficientForm() (*CoefficientForm, error) {
 		if (strings.Compare(w.le1.Text(), "") != 0) && (strings.Compare(w.le2.Text(), "") != 0) &&
 			(strings.Compare(w.le3.Text(), "") != 0) && (strings.Compare(w.le4.Text(), "") != 0) {
 			coc := CoefficientOfCouplingCal(w.le1.Text(), w.le2.Text(), w.le3.Text(), w.le4.Text())
-			Inductance  := GetMutualInductance(w.le1.Text(), w.le2.Text())
+			Inductance := GetMutualInductance(w.le1.Text(), w.le2.Text())
 			w.le5.SetText(coc)
 			w.le6.SetText(Inductance)
 		} else {
@@ -136,38 +132,37 @@ func NewCoefficientForm() (*CoefficientForm, error) {
 		}
 	})
 
+	hbox := ui.NewHBoxLayout()
+	hbox.AddWidget(w.label_1)
+	hbox.AddWidget(w.le1)
 
-    hbox := ui.NewHBoxLayout()
-    hbox.AddWidget(w.label_1)
-    hbox.AddWidget(w.le1)
+	hbox2 := ui.NewHBoxLayout()
+	hbox2.AddWidget(w.label_2)
+	hbox2.AddWidget(w.le2)
 
-    hbox2 := ui.NewHBoxLayout()
-    hbox2.AddWidget(w.label_2)
-    hbox2.AddWidget(w.le2)
+	hbox3 := ui.NewHBoxLayout()
+	hbox3.AddWidget(w.label_3)
+	hbox3.AddWidget(w.le3)
 
-    hbox3 := ui.NewHBoxLayout()
-    hbox3.AddWidget(w.label_3)
-    hbox3.AddWidget(w.le3)
+	hbox4 := ui.NewHBoxLayout()
+	hbox4.AddWidget(w.label_4)
+	hbox4.AddWidget(w.le4)
 
-    hbox4 := ui.NewHBoxLayout()
-    hbox4.AddWidget(w.label_4)
-    hbox4.AddWidget(w.le4)
+	hbox5 := ui.NewHBoxLayout()
+	hbox5.AddWidget(w.btn1)
 
-    hbox5 := ui.NewHBoxLayout()
-    hbox5.AddWidget(w.btn1)
+	hbox6 := ui.NewHBoxLayout()
+	hbox6.AddWidget(w.label_5)
+	hbox6.AddWidget(w.le5)
 
-    hbox6 := ui.NewHBoxLayout()
-    hbox6.AddWidget(w.label_5)
-    hbox6.AddWidget(w.le5)
+	hbox7 := ui.NewHBoxLayout()
+	hbox7.AddWidget(w.label_6)
+	hbox7.AddWidget(w.le6)
 
-    hbox7 := ui.NewHBoxLayout()
-    hbox7.AddWidget(w.label_6)
-    hbox7.AddWidget(w.le6)
+	hbox8 := ui.NewHBoxLayout()
+	hbox8.AddWidget(w.picbox)
 
-    hbox8 := ui.NewHBoxLayout()
-    hbox8.AddWidget(w.picbox)
-
-    vboxL := ui.NewVBoxLayout()
+	vboxL := ui.NewVBoxLayout()
 	vboxL.AddLayout(hbox)
 	vboxL.AddLayout(hbox2)
 	vboxL.AddLayout(hbox3)
@@ -176,9 +171,9 @@ func NewCoefficientForm() (*CoefficientForm, error) {
 	vboxL.AddLayout(hbox6)
 	vboxL.AddLayout(hbox7)
 
-    hboxMain := ui.NewHBoxLayout()
-    hboxMain.AddLayout(vboxL)
-    hboxMain.AddLayout(hbox8)
+	hboxMain := ui.NewHBoxLayout()
+	hboxMain.AddLayout(vboxL)
+	hboxMain.AddLayout(hbox8)
 
 	w.SetLayout(hboxMain)
 
