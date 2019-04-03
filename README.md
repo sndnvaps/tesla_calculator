@@ -15,6 +15,7 @@ go-bindata -pkg main -o images_bindata.go images  #生成文件为images_bindata
     2. 计算次级线圈的电感，谐振频率，寄生电容
     3. 计算次级线圈与初级线圈的耦合系数
     4. 计算电弧长度
+    5. 计算顶端电容（球形，环形顶端电容）
     
 准备添加的功能：
 
