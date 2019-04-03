@@ -96,11 +96,12 @@ func NewMainForm() (*MainForm, error) {
 	})
 
 	w.btn2.OnClicked(func() {
-		sphere, err := NewSphereForm()
-		if err != nil {
-			log.Fatalln(err)
-		}
-		sphere.Show()
+
+        topload, err := NewToploadForm()
+        if err != nil {
+            log.Fatalln(err)
+        }
+        topload.Show()
 	})
 
 	w.btn3.OnClicked(func() {

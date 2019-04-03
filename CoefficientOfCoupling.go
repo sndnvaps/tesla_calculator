@@ -1,7 +1,6 @@
 package main
 
 import (
-	//"errors"
 	"fmt"
 	"github.com/visualfc/goqt/ui"
 	"math"
@@ -65,6 +64,8 @@ func NewCoefficientForm() (*CoefficientForm, error) {
 
 	w := &CoefficientForm{}
 	w.QWidget = ui.NewWidget()
+    //w.SetFixedWidth(700)
+    //w.SetFixedHeight(280)
 
     w.btn1 = ui.NewPushButton()
     w.btn1.SetText("计算")
@@ -72,27 +73,34 @@ func NewCoefficientForm() (*CoefficientForm, error) {
     w.label_1 = ui.NewLabel()
     w.label_1.SetText("正向测试电感值")
     w.le1 = ui.NewLineEdit()
+    //QWidget::setGeometry(int,int,int,int)
+    //w.le1.SetGeometryWithXYWidthHeight(150,10,113,20)
 
     w.label_2 = ui.NewLabel()
     w.label_2.SetText("反向测试电感值")
     w.le2 = ui.NewLineEdit()
+    //w.le2.SetGeometryWithXYWidthHeight(150,40,113,20)
 
     w.label_3 = ui.NewLabel()
     w.label_3.SetText("线圈电感L1")
+    //w.label_3.SetGeometryWithXYWidthHeight(20,70,111,20)
     w.le3 = ui.NewLineEdit()
+    //w.le3.SetGeometryWithXYWidthHeight(150,70,113,20)
 
     w.label_4 = ui.NewLabel()
     w.label_4.SetText("线圈电感L2")
     w.le4 = ui.NewLineEdit()
+    //w.le4.SetGeometryWithXYWidthHeight(150,100,113,20)
 
     w.label_5 = ui.NewLabel()
     w.label_5.SetText("互感系数")
     w.le5 = ui.NewLineEdit()
+    //w.le5.SetGeometryWithXYWidthHeight(150,170,113,20)
 
     w.label_6 = ui.NewLabel()
     w.label_6.SetText("耦合系数")
     w.le6 = ui.NewLineEdit()
-
+    //w.le6.SetGeometryWithXYWidthHeight(150,200,113,20)
 
     w.picbox = ui.NewLabel()
 
@@ -104,7 +112,6 @@ func NewCoefficientForm() (*CoefficientForm, error) {
 	ImageBox := ui.NewPixmap()
     imgData, _ := Asset("images/CouplingDegree.png")
     ImageBox.LoadFromData(imgData)
-	//ImageBox.Load(":/images/CouplingDegree.png") //先加载图片 CouplingDegree
 
 	w.picbox.SetPixmap(ImageBox)
 
