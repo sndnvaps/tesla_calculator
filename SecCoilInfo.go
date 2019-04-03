@@ -255,5 +255,6 @@ func SecCoilInfoForm() {
 
 	widget := ui.NewWidget()
 	widget.SetLayout(vbox)
+    widget.SetWindowTitle("次级线圈参数计算")
 	widget.Show()
 }
