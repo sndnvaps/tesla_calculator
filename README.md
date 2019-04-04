@@ -16,13 +16,9 @@ go-bindata -pkg main -o images_bindata.go images  #生成文件为images_bindata
     3. 计算次级线圈与初级线圈的耦合系数
     4. 计算电弧长度
     5. 计算顶端电容（球形，环形顶端电容）
+    6. 计算品质系数Q
     
-准备添加的功能：
-
-    1. 添加计算次级线圈品质系数（Q）的计算功能， 公式为
-                 Q = (2*Pi*f*L)/R
-
-
+ 
 Support platform(Qt 5.11.1)
 ```
    Linux
