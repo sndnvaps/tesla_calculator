@@ -74,27 +74,27 @@ func SecCoilInfoCal(IFormHight, IFormDiameter, IWireDiameter string) [9]string {
 		Induct := SecInduct(turns, IFormHight_x, IFormDiameter_y) //电感
 		Cap := SecCap(IFormHight_x, IFormDiameter_y)              //电容
 		Resonant := SecResonant(Cap, Induct)                      //Frequency
-        skindepth := SkinDepth(Resonant)
-        resistanceDC := ResitanceDC(IWireDiameter,IFormDiameter,turns)
-        skinEffectFactor := SkinEffecFactor(IWireDiameter,skindepth)
-        resistanceAC := ResitanceAC(skinEffectFactor,resistanceDC)
+		skindepth := SkinDepth(Resonant)
+		resistanceDC := ResitanceDC(IWireDiameter, IFormDiameter, turns)
+		skinEffectFactor := SkinEffecFactor(IWireDiameter, skindepth)
+		resistanceAC := ResitanceAC(skinEffectFactor, resistanceDC)
 
-        QFactor := SecQFactor(Resonant,Induct,resistanceAC)      //Sec Coil Quality Factor
+		QFactor := SecQFactor(Resonant, Induct, resistanceAC) //Sec Coil Quality Factor
 
 		output[0] = turns
 		output[1] = Induct
 		output[2] = Cap
 		output[3] = Resonant
-        output[4] = skindepth
-        output[5] = resistanceDC
-        output[6] = skinEffectFactor
-        output[7] = resistanceAC
-        output[8] = QFactor 
+		output[4] = skindepth
+		output[5] = resistanceDC
+		output[6] = skinEffectFactor
+		output[7] = resistanceAC
+		output[8] = QFactor
 
 		return output
 	}
 	//返回 slice string
-	return [9]string{"0.0", "0.0", "0.0", "0.0", "0.0","0.0","0.0", "0.0", "0.0"}
+	return [9]string{"0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"}
 }
 
 /*
@@ -109,7 +109,7 @@ func SecCoilInfoCal(IFormHight, IFormDiameter, IWireDiameter string) [9]string {
 func SecCoilTurns(FormHight, WireDiameter float64) string {
 	MagnetWireDiameter := WireDiameter //毫米
 	IFormHeight := (FormHight * 10.0)  //将厘米转换成 毫米
-	output := (1 / (MagnetWireDiameter + MagnetWireDiameter/10 )) * IFormHeight 
+	output := (1 / (MagnetWireDiameter + MagnetWireDiameter/10)) * IFormHeight
 	return fmt.Sprintf("%0.6f", output)
 }
 
@@ -126,7 +126,7 @@ func SecCap(FormHight, FormDiameter float64) string {
 	IFormHeight := (float64)(FormHight * 10.0) //将厘米转换成 毫米
 	IFormDiameter := (float64)(FormDiameter)   // 毫米
 	Radius := IFormDiameter / 2                //线管的半径，单位毫米
-	cs := 5.08 * (Radius / u )* (0.0563*((IFormHeight/u)/(Radius/u)) + 0.08 + 0.38*math.Sqrt(1/((IFormHeight/u)/(Radius/u))))
+	cs := 5.08 * (Radius / u) * (0.0563*((IFormHeight/u)/(Radius/u)) + 0.08 + 0.38*math.Sqrt(1/((IFormHeight/u)/(Radius/u))))
 	return fmt.Sprintf("%0.6f", cs)
 }
 
@@ -167,52 +167,50 @@ func SecResonant(SecCap, SecInduct string) string {
  * return
  * string -> skin depth (m)
  * output = math.Sqrt((0.0179*math.Pow(10,-6)/(math.Pi*math.Pow(10,-7))))*(1/(math.Sqrt(Fres)))
-*/
+ */
 func SkinDepth(Fres string) string {
 
-    fres,_ := strconv.ParseFloat(Fres,64)
-    output := math.Sqrt((0.0179*math.Pow(10,-6))/(4*math.Pi*math.Pi*math.Pow(10,-7)))*(1/(math.Sqrt(fres)))
-    return fmt.Sprintf("%0.8f", output)
+	fres, _ := strconv.ParseFloat(Fres, 64)
+	output := math.Sqrt((0.0179*math.Pow(10, -6))/(4*math.Pi*math.Pi*math.Pow(10, -7))) * (1 / (math.Sqrt(fres)))
+	return fmt.Sprintf("%0.8f", output)
 }
 
 /*
  *@parame
  * WireDia -> mm
  * CoilDia -> mm
- * 
-*/
-func ResitanceDC(WireDia,CoilDia,Turns string) string {
-     CoilDia_x, _ := strconv.ParseFloat(CoilDia,64)
-     Turns_x, _ := strconv.ParseFloat(Turns,64)
-     WireDia_x, _ := strconv.ParseFloat(WireDia,64)
-     output := (4*(CoilDia_x/1000)* Turns_x *(0.0179*math.Pow(10,-6)))/((WireDia_x/1000)*(WireDia_x/1000))
-     return fmt.Sprintf("%0.8f", output)
+ *
+ */
+func ResitanceDC(WireDia, CoilDia, Turns string) string {
+	CoilDia_x, _ := strconv.ParseFloat(CoilDia, 64)
+	Turns_x, _ := strconv.ParseFloat(Turns, 64)
+	WireDia_x, _ := strconv.ParseFloat(WireDia, 64)
+	output := (4 * (CoilDia_x / 1000) * Turns_x * (0.0179 * math.Pow(10, -6))) / ((WireDia_x / 1000) * (WireDia_x / 1000))
+	return fmt.Sprintf("%0.8f", output)
 }
-
 
 /*
  *@parame
  * WireDia -> mm
  * SiknDepth -> m
  *return
- * output -> 
+ * output ->
  *   if(SkinDepth * 1000) > (WireDia/2) ->= 1
- *    else 
+ *    else
        (((WireDia/1000)^2)/(4*(((WireDia/1000)*SkinDepth) - (SkinDepth^2))))
  *
 */
-func SkinEffecFactor(WireDia,SkinDepth string) string {
-     WireDia_x, _ := strconv.ParseFloat(WireDia,64)
-     SkinDepth_x, _ := strconv.ParseFloat(SkinDepth,64)
-     var output float64 = 0.0
-     if (SkinDepth_x * 1000) > (WireDia_x/2) {
-          output = 1.0
-     } else {
-         output = math.Pow((WireDia_x/1000.0),2)/(4*(((WireDia_x/1000.0)*SkinDepth_x) - (math.Pow(SkinDepth_x,2))))
-     }
-     return fmt.Sprintf("%0.6f", output)
+func SkinEffecFactor(WireDia, SkinDepth string) string {
+	WireDia_x, _ := strconv.ParseFloat(WireDia, 64)
+	SkinDepth_x, _ := strconv.ParseFloat(SkinDepth, 64)
+	var output float64 = 0.0
+	if (SkinDepth_x * 1000) > (WireDia_x / 2) {
+		output = 1.0
+	} else {
+		output = math.Pow((WireDia_x/1000.0), 2) / (4 * (((WireDia_x / 1000.0) * SkinDepth_x) - (math.Pow(SkinDepth_x, 2))))
+	}
+	return fmt.Sprintf("%0.6f", output)
 }
-
 
 /*
  *@parame
@@ -220,14 +218,14 @@ func SkinEffecFactor(WireDia,SkinDepth string) string {
  * resitanceDC-> ohm
  *@return
  * output -> ohm
- * 
-*/
-func ResitanceAC(skinEffectFactor,ResistanceDC string) string {
+ *
+ */
+func ResitanceAC(skinEffectFactor, ResistanceDC string) string {
 
-     skineffect, _ := strconv.ParseFloat(skinEffectFactor,64)
-     resistanceDC, _ := strconv.ParseFloat(ResistanceDC,64)
-     output := resistanceDC * skineffect * 3
-     return fmt.Sprintf("%0.4f", output)
+	skineffect, _ := strconv.ParseFloat(skinEffectFactor, 64)
+	resistanceDC, _ := strconv.ParseFloat(ResistanceDC, 64)
+	output := resistanceDC * skineffect * 3
+	return fmt.Sprintf("%0.4f", output)
 }
 
 /*
@@ -238,13 +236,13 @@ func ResitanceAC(skinEffectFactor,ResistanceDC string) string {
  *@return
  * output -> Quality Factor of Secondaly coil -> Q
  *   output = (2 * math.Pi * Fres *(Induct/1000000))/ResitanceAC
-*/
-func SecQFactor(Fres,Induct,ResitanceAC string) string {
-     fres, _ := strconv.ParseFloat(Fres,64)
-     induct, _ := strconv.ParseFloat(Induct,64)
-     resitanceAC, _ := strconv.ParseFloat(ResitanceAC,64)
-     output := (2 * math.Pi * fres *(induct/1000000))/resitanceAC
-     return fmt.Sprintf("%0.4f", output)
+ */
+func SecQFactor(Fres, Induct, ResitanceAC string) string {
+	fres, _ := strconv.ParseFloat(Fres, 64)
+	induct, _ := strconv.ParseFloat(Induct, 64)
+	resitanceAC, _ := strconv.ParseFloat(ResitanceAC, 64)
+	output := (2 * math.Pi * fres * (induct / 1000000)) / resitanceAC
+	return fmt.Sprintf("%0.4f", output)
 }
 
 func SecCoilInfoForm() {
@@ -284,30 +282,30 @@ func SecCoilInfoForm() {
 	outputbox4 := ui.NewLineEdit()
 	outputbox4.SetReadOnly(true)
 
-    label8 := ui.NewLabel()
-    label8.SetText("趋肤深度(m)")
-    outputbox5 := ui.NewLineEdit()
-    outputbox5.SetReadOnly(true)
+	label8 := ui.NewLabel()
+	label8.SetText("趋肤深度(m)")
+	outputbox5 := ui.NewLineEdit()
+	outputbox5.SetReadOnly(true)
 
-    label9 := ui.NewLabel()
-    label9.SetText("次级电阻值(ohm)")
-    outputbox6 := ui.NewLineEdit()
-    outputbox6.SetReadOnly(true)
+	label9 := ui.NewLabel()
+	label9.SetText("次级电阻值(ohm)")
+	outputbox6 := ui.NewLineEdit()
+	outputbox6.SetReadOnly(true)
 
-    label10 := ui.NewLabel()
-    label10.SetText("趋肤效应因子")
-    outputbox7 := ui.NewLineEdit()
-    outputbox7.SetReadOnly(true)
+	label10 := ui.NewLabel()
+	label10.SetText("趋肤效应因子")
+	outputbox7 := ui.NewLineEdit()
+	outputbox7.SetReadOnly(true)
 
-    label11 := ui.NewLabel()
-    label11.SetText("交变阻抗(ohm)")
-    outputbox8 := ui.NewLineEdit()
-    outputbox8.SetReadOnly(true)
+	label11 := ui.NewLabel()
+	label11.SetText("交变阻抗(ohm)")
+	outputbox8 := ui.NewLineEdit()
+	outputbox8.SetReadOnly(true)
 
-    label12 := ui.NewLabel()
-    label12.SetText("Q值(Q)")
-    outputbox9 := ui.NewLineEdit()
-    outputbox9.SetReadOnly(true)
+	label12 := ui.NewLabel()
+	label12.SetText("Q值(Q)")
+	outputbox9 := ui.NewLineEdit()
+	outputbox9.SetReadOnly(true)
 
 	//计算结果
 	CalBtn := ui.NewPushButton()
@@ -321,11 +319,11 @@ func SecCoilInfoForm() {
 			outputbox2.SetText(output[1])
 			outputbox3.SetText(output[2])
 			outputbox4.SetText(output[3])
-            outputbox5.SetText(output[4])
-            outputbox6.SetText(output[5])
-            outputbox7.SetText(output[6])
-            outputbox8.SetText(output[7])
-            outputbox9.SetText(output[8])
+			outputbox5.SetText(output[4])
+			outputbox6.SetText(output[5])
+			outputbox7.SetText(output[6])
+			outputbox8.SetText(output[7])
+			outputbox9.SetText(output[8])
 
 		} else {
 			messagebox := ui.NewMessageBox()
