@@ -19,6 +19,19 @@ func main() {
 		Icon.LoadFromData(IconData)
 		TC_Icon := ui.NewIconWithPixmap(Icon)
 		app.SetWindowIcon(TC_Icon)
+		//func (q *QApplication) AddLibraryPath(value string)
+		
+        AddLibraryPath(app)
+
+		LibraryPaths := app.LibraryPaths()
+		var LibraryPath string = string("")
+		for i := 0; i < len(LibraryPaths); i++ {
+		LibraryPath += LibraryPaths[i] + "\n"
+		}
+		messagebox := ui.NewMessageBox()
+		messagebox.SetText(LibraryPath)
+		messagebox.Show()
+
 		w := NewMainWindow()
 		w.Show()
 	})
