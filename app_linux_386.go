@@ -1,10 +1,9 @@
-//+build !windows,386
+//+build !windows
+//+build 386
 package main
 
 import (
 	"github.com/visualfc/goqt/ui"
-	"os"
-	//"log"
 )
 
 func AddLibraryPath(app *ui.QApplication) {
