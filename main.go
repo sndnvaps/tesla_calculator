@@ -18,9 +18,8 @@ func main() {
 		TC_Icon := ui.NewIconWithPixmap(Icon)
 		app.SetWindowIcon(TC_Icon)
 		
-        AddLibraryPath(app)
         // Test for Qt Plugins path; Begin test
-        /*
+		/*
 		LibraryPaths := app.LibraryPaths()
 		var LibraryPath string = string("")
 		for i := 0; i < len(LibraryPaths); i++ {
@@ -29,7 +28,8 @@ func main() {
 		messagebox := ui.NewMessageBox()
 		messagebox.SetText(LibraryPath)
 		messagebox.Show()
-        */ //End test
+		*/
+        //End test
 
 		w := NewMainWindow()
 		w.Show()

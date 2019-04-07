@@ -32,6 +32,12 @@ Support platform(Qt 5.11.1)
    3. 再安装[goqt](https://github.com/visualfc/goqt)
    4. 执行编译命令 build.[bat|sh] 根据不同的平台进行选择
    5. 最终编译得到的程序为*tesla_calculator*
+   
+如何打包生成 可运行的程序安装包
+   1. Windows平台使用 PowerShell执行 [ExecPack.ps1](ExecPack.ps1) #首先要在Powershell中输入 ‘set-ExecutionPolicy RemoteSigned‘ 命令，再输入Y，以解除系统禁止运行脚本限制
+   2. Linux平台运行ExecPack.sh脚本
+   3. 如果你的Qt版本不是 5.11.1,你需要更换 [Depends](Depends)目录下面相应的文件
+   4. 版本不是5.11.1的时候，还需要更换[Depends\plugins](Depends\plugins)目录下面所对应的系统文件，此目录对应QT安装目录里面的`plugins\platforms`
 
 App Pics
 

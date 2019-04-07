@@ -27,11 +27,11 @@ fi
 # After build process, Let's copy all the 
 function CopyDependFiles {
 if [ ! -d $des ]; then
-mkdir -p $des/{bin,icon,lib,plugins}
+mkdir -p $des/{bin,icon,lib,platforms}
 fi
 deplist=$(ldd $Exec | awk '{if (match($3,"/")){ printf("%s "),$3 } }')
 cp $deplist $des/lib/
-cp -rp plugins/platforms $des/plugins/
+cp -rp Depends/qt5.11.1/$(uname -s)_$(uname -m)/*.so $des/platforms/
 
 }
 
