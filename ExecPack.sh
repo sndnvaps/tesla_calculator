@@ -13,6 +13,10 @@ go build -ldflags "-r ." -o $Exec
 
 # Clean all the Release Folder && Files
 function Clean {
+if [ -f $Exec ]
+then
+ rm -rf $Exec
+fi
 if [ -d $des ]
 then
  rm -rf $des
@@ -27,11 +31,12 @@ fi
 # After build process, Let's copy all the 
 function CopyDependFiles {
 if [ ! -d $des ]; then
-mkdir -p $des/{bin,icon,lib,platforms}
+mkdir -p $des/{bin,icon,lib,plugins}
+mkdir -p $des/plugins/platforms
 fi
 deplist=$(ldd $Exec | awk '{if (match($3,"/")){ printf("%s "),$3 } }')
 cp $deplist $des/lib/
-cp -rp Depends/qt5.11.1/$(uname -s)_$(uname -m)/*.so $des/platforms/
+cp -rp Depends/qt5.11.1/$(uname -s)_$(uname -m)/*.so $des/plugins/platforms/
 
 }
 

@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/visualfc/goqt/ui"
 	"os"
-	//"log"
+    "runtime"
 )
 
 func main() {
@@ -18,17 +18,21 @@ func main() {
 		TC_Icon := ui.NewIconWithPixmap(Icon)
 		app.SetWindowIcon(TC_Icon)
 		
+		if (runtime.GOOS == "linux") {
+           AddLibraryPath(app)
+         }
         // Test for Qt Plugins path; Begin test
-		/*
+
 		LibraryPaths := app.LibraryPaths()
 		var LibraryPath string = string("")
 		for i := 0; i < len(LibraryPaths); i++ {
 		LibraryPath += LibraryPaths[i] + "\n"
 		}
+
 		messagebox := ui.NewMessageBox()
-		messagebox.SetText(LibraryPath)
+		messagebox.SetText(LibraryPath) // == linux
 		messagebox.Show()
-		*/
+		
         //End test
 
 		w := NewMainWindow()
