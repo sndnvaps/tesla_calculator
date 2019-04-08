@@ -44,6 +44,9 @@ Support platform(Qt 5.11.1)
    1. 下载安装[linuxdeployqt工具](https://github.com/probonopd/linuxdeployqt/releases)
    2. 把下载得到的linuxdeployqt-5-x86_64.AppImage重命名为linuxdeployqt,并复制到/usr/bin/目录里面
           mv linuxdeployqt-5-x86_64.AppImage linuxdeployqt
+   3. 下载安装[appimagetool工具](https://github.com/AppImage/AppImageKit/releases)
+   4. 把下载得到的appimagetool-x86_64.AppImage重命名为appimagetool,并复制到/usr/bin目录里面
+          mv appimagetool-x86_64.AppImage appimagetool
    3. 运行PackExecQt.sh
 
 App Pics

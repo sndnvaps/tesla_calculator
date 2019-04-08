@@ -3,7 +3,7 @@
 # export exec name
 Exec=tesla_calculator
 # Setup Release folder
-ReleaseFolder=linuxdeployqt.AppDir
+ReleaseFolder=tesla_calculator.AppDir
 des=$PWD/$ReleaseFolder
 # Start build process
 function Build {
@@ -26,10 +26,8 @@ fi
 
 
 function Pack {
-linuxdeployqt $des/usr/bin/$Exec
-cd $ReleaseFolder
-tar -czvf ../$Exec-$(uname -s)-$(uname -m).tar.gz usr/
-cd ..
+linuxdeployqt $des/usr/share/applications/$Exec.desktop -appimage
+appimagetool  $ReleaseFolder
 }
 
 Clean

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Exec=tesla_calculator
+Name=Tesla Coil Calculator
+Icon=tesla_calculator
+Terminal=false
+Categories=Utility;
+X-Deepin-Vendor=deepin
+
