@@ -9,8 +9,8 @@ import (
 func main() {
 	ui.RunEx(os.Args, func() {
 		app := ui.Application()
-		app.SetOrganizationName("GoQt")
-		app.SetApplicationName("Application Example")
+		app.SetOrganizationName("sndnvaps.com")
+		app.SetApplicationName("特斯拉线圈计算器")
 
 		Icon := ui.NewPixmap()
 		IconData, _ := Asset("images/tesla.ico")
@@ -18,7 +18,7 @@ func main() {
 		TC_Icon := ui.NewIconWithPixmap(Icon)
 		app.SetWindowIcon(TC_Icon)
 
-		if runtime.GOOS == "linux" {
+		if (runtime.GOOS == "linux" && runtime.GOARCH == "arm") {
 			AddLibraryPath(app)
 		}
 		// Test for Qt Plugins path; Begin test

@@ -1,4 +1,5 @@
 teslacoil_cal/
+linuxdeployqt.AppDir/
 Release
 *.tar.gz
 tesla_calculator

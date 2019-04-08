@@ -2,9 +2,9 @@
 Type=Application
 Encoding=UTF-8
 Versino=1.5.0
-Exec=/usr/local/teslacoil_cal/bin/tesla_calculator.sh
+Exec=tesla_calculator
 Name=Tesla Coil Calculator
-Icon=/usr/local/teslacoil_cal/icon/tesla.ico
+Icon=tesla_calculator
 Terminal=false
 categories=Utility;
 
