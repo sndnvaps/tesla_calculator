@@ -5,6 +5,7 @@ Exec=tesla_calculator
 # Setup Release folder
 ReleaseFolder=tesla_calculator.AppDir
 des=$PWD/$ReleaseFolder
+VERSION=$(git rev-parse --short HEAD)
 # Start build process
 function Build {
 go build -ldflags "-r ." -o $des/usr/bin/$Exec
@@ -26,8 +27,10 @@ fi
 
 
 function Pack {
-linuxdeployqt $des/usr/share/applications/$Exec.desktop -appimage
-appimagetool  $ReleaseFolder
+cp /usr/bin/desktop-file-validate $des/usr/bin/
+linuxdeployqt $des/usr/share/applications/$Exec.desktop -appimage \
+  -executable=$des/usr/bin/desktop-file-validate
+#appimagetool  $ReleaseFolder
 }
 
 Clean
