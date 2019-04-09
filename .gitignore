@@ -2,6 +2,7 @@ teslacoil_cal/
 tesla_calculator.AppDir/
 Release
 *.tar.gz
+*.zip
 tesla_calculator
 tesla_calculator.exe
 *.AppImage
