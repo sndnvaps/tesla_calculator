@@ -3,34 +3,35 @@
 # Pack && deploy it.
 # Now just pack for Qt5.11.1
 # if you want to pack for what you Qt version
+# you must install goqt first
 $QtVersion="qt5.11.1"
-$AppName="tesla_calculator.exe"
+$AppName="tesla_calculator"
 $AppVersion="1.5.0"
 $ReleaseDir="Release"
 $DependDir="Depends"
+$gopathTmp=$env:GOPATH
 
 Function Build {
     new-item -type directory -path $ReleaseDir
-    go build -ldflags "-H windowsgui" -o $ReleaseDir\$AppName
+    go build -ldflags "-H windowsgui" -o $ReleaseDir\$AppName.exe
 }
 
 Function Clean {
  if (Test-path $AppName-v$AppVersion-win-x86.zip) {
-	remove-item $AppName-v$AppVersion-win-x86.zip
+	   remove-item $AppName-v$AppVersion-win-x86.zip
 	}
- if (Test-path $AppName) {
-     remove-item $AppName
-	}
-  if (Test-path $ReleaseDir) {
-     remove-item $ReleaseDir -Recurse
+
+ if (Test-path $ReleaseDir) {
+       remove-item $ReleaseDir -Recurse
 	}
 }
 
 Function CopyDepend {
-	new-item -type directory -path $ReleaseDir\platforms
-	
-	copy-item $DependDir\$QtVersion\plugins\win_x86\*.dll -destination $ReleaseDir\platforms
-	copy-item $DependDir\$QtVersion\win_x86\*.dll -destination $ReleaseDir
+	copy-item $gopathTmp\src\github.com\visualfc\goqt\bin\qtdrv.ui.dll -destination $ReleaseDir
+}
+
+Function Deploy {
+   windeployqt $ReleaseDir\qtdrv.ui.dll --dir $ReleaseDir
 }
 
 Function PackZip {
@@ -40,6 +41,7 @@ Function PackZip {
 Clean
 Build
 CopyDepend
+Deploy
 PackZip
 
 
