@@ -51,6 +51,10 @@ Support platform(Qt 5.11.1)
         
         Windows平台，下载 *-Win-x86.zip
         Linux平台，下载 *-Linux-*.AppImage (AppImage程序，下载直接就可以运行了）
+        
+ # what need to do!
+ 
+       1. make a English User Interface
 
 App Pics
 
