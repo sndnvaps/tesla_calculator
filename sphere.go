@@ -19,21 +19,6 @@ type SphereForm struct {
 }
 
 /*
-//常量
-var k=1.01;
-//当输入的单位为mm的时候
-var u=25.4;
-
-//球形的半径假设为 381mm(即为15 Inch)
-var r=381;
-//电容的单位使用pf
-//9e+9 = 9*10^9
-var c=0.0;
-c=(k*r/u/39.3701)/(9e+9)
-c=c*(1e+15)
-c=c/(1e+3)
-*/
-/*
  *@parame
  * radius -> 球的半径, 单位 mm
  *@return

@@ -32,7 +32,6 @@ type CoefficientForm struct {
 /*  用于计算特斯拉线圈的互感系统及耦合系数
  *  //MutualInductance = (LForward - LReverse)/4
  *  //CouplingDegree =  MutualInductance / sqrt (L1*L2)
- *  //源代码参考自 http://bbs.kechuang.org/read-kc-tid-58673-1-1.html
  */
 func CoefficientOfCouplingCal(LForward, LReverse, L1, L2 string) string {
 	if (strings.Compare(LForward, "") != 0) && (strings.Compare(LReverse, "") != 0) && (strings.Compare(L1, "") != 0) && (strings.Compare(L2, "") != 0) {
