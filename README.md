@@ -53,9 +53,9 @@ Support platform(Qt 5.11.1)
         Windows平台，下载 *-Win-x86.zip
         Linux平台，下载 *-Linux-*.AppImage (AppImage程序，下载直接就可以运行了）
         
- # what need to do!
- 
-       [x]1. make a English User Interface(Finish the job)
+# How to change the defult User Interface
+
+       1. change [conf/app.ini](conf/app.ini),change the `defaultLang` to en-US or zh-CN what you like
 
 App Pics
 

@@ -29,9 +29,6 @@ func IsValidDriver(v ui.Driver) bool {
 
 func NewMainWindow() *MainWindowForm {
 
-	Lang = &Controller{
-		Locale: i18n.Locale{setting.DefLang}, //set default in conf/app.ini
-	}
 	w := &MainWindowForm{}
 	w.QMainWindow = ui.NewMainWindow()
 	w.InstallEventFilter(w)
