@@ -11,6 +11,7 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 // License for the specific language governing permissions and limitations
 // under the License.
+//+build windows
 
 package setting
 
@@ -21,27 +22,7 @@ import (
 	"gopkg.in/ini.v1"
 )
 
-var (
-	Cfg *ini.File
-
-	Langs, Names []string
-	DefLang      string
+const (
+	CFG_PATH        = "conf/app.ini"
+	CFG_CUSTOM_PATH = "conf/custom.ini"
 )
-
-func init() {
-
-	var err error
-	Cfg, err = ini.Load(CFG_PATH)
-	if err != nil {
-		panic(fmt.Errorf("fail to load config file '%s': %v", CFG_PATH, err))
-	}
-	if com.IsFile(CFG_CUSTOM_PATH) {
-		if err = Cfg.Append(CFG_CUSTOM_PATH); err != nil {
-			panic(fmt.Errorf("fail to load config file '%s': %v", CFG_CUSTOM_PATH, err))
-		}
-	}
-
-	Langs = Cfg.Section("i18n").Key("langs").Strings(",")
-	Names = Cfg.Section("i18n").Key("names").Strings(",")
-	DefLang = Cfg.Section("i18n").Key("defaultLang").String()
-}
