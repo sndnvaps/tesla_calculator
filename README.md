@@ -17,6 +17,7 @@ go-bindata -pkg main -o images_bindata.go images  #生成文件为images_bindata
     4. 计算电弧长度
     5. 计算顶端电容（球形，环形顶端电容）
     6. 计算品质系数Q
+	7. 多语言支持(MultiLang Support Now)
     
  
 Support platform(Qt 5.11.1)
@@ -54,7 +55,7 @@ Support platform(Qt 5.11.1)
         
  # what need to do!
  
-       1. make a English User Interface
+       [x]1. make a English User Interface(Finish the job)
 
 App Pics
 

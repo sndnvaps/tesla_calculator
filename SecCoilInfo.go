@@ -12,7 +12,7 @@ import (
 
 //1F=10^6uF=10^12pF
 //1F=10^12pF
-   
+
 /* @parame
  * IFormHight -> 绕线的高度， 单位cm
  * IFormDiameter -> 管径, 单位 mm
@@ -125,7 +125,7 @@ func SecResonant(SecCap, SecInduct string) string {
 
 /*
  *@parame
- * Fres -> Frequency of sec coil(hz)
+ * Fres -> Frequency of secondarycoil(hz)
  * return
  * string -> skin depth (m)
  * output = math.Sqrt((0.0179*math.Pow(10,-6)/(math.Pi*math.Pow(10,-7))))*(1/(math.Sqrt(Fres)))
@@ -210,68 +210,68 @@ func SecQFactor(Fres, Induct, ResitanceAC string) string {
 func SecCoilInfoForm() {
 
 	label := ui.NewLabel()
-	label.SetText("次级线圈的绕线高度(cm)") //Length
+	label.SetText(Lang.Tr("secondary.coilLength")) //Length
 	//输入框
 	inputBox := ui.NewLineEdit()
 	//------------------------------
 	label2 := ui.NewLabel()
-	label2.SetText("次级线圈线径(mm)") // LReverse
+	label2.SetText(Lang.Tr("secondary.wireDia")) // LReverse
 	//输入框2
 	inputBox2 := ui.NewLineEdit()
 
 	label3 := ui.NewLabel()
-	label3.SetText("次级线圈直径(mm)")
+	label3.SetText(Lang.Tr("secondary.CoilDia"))
 	//输入框3
 	inputBox3 := ui.NewLineEdit()
 
 	label4 := ui.NewLabel()
-	label4.SetText("次级箍数")
+	label4.SetText(Lang.Tr("secondary.turns"))
 	outputbox1 := ui.NewLineEdit()
 	outputbox1.SetReadOnly(true)
 
 	label5 := ui.NewLabel()
-	label5.SetText("次级线圈电感(μH)")
+	label5.SetText(Lang.Tr("secondary.inductance"))
 	outputbox2 := ui.NewLineEdit()
 	outputbox2.SetReadOnly(true)
 
 	label6 := ui.NewLabel()
-	label6.SetText("次级线圈寄生电容(pf)")
+	label6.SetText(Lang.Tr("secondary.ParasiticCap"))
 	outputbox3 := ui.NewLineEdit()
 	outputbox3.SetReadOnly(true)
 
 	label7 := ui.NewLabel()
-	label7.SetText("不加均压环的谐振频率(Hz)")
+	label7.SetText(Lang.Tr("secondary.noTopFres"))
 	outputbox4 := ui.NewLineEdit()
 	outputbox4.SetReadOnly(true)
 
 	label8 := ui.NewLabel()
-	label8.SetText("趋肤深度(m)")
+	label8.SetText(Lang.Tr("secondary.skinDepth"))
 	outputbox5 := ui.NewLineEdit()
 	outputbox5.SetReadOnly(true)
 
 	label9 := ui.NewLabel()
-	label9.SetText("次级电阻值(ohm)")
+	label9.SetText(Lang.Tr("secondary.resDC"))
 	outputbox6 := ui.NewLineEdit()
 	outputbox6.SetReadOnly(true)
 
 	label10 := ui.NewLabel()
-	label10.SetText("趋肤效应因子")
+	label10.SetText(Lang.Tr("secondary.skinEffectFactor"))
 	outputbox7 := ui.NewLineEdit()
 	outputbox7.SetReadOnly(true)
 
 	label11 := ui.NewLabel()
-	label11.SetText("交变阻抗(ohm)")
+	label11.SetText(Lang.Tr("secondary.resAC"))
 	outputbox8 := ui.NewLineEdit()
 	outputbox8.SetReadOnly(true)
 
 	label12 := ui.NewLabel()
-	label12.SetText("Q值(Q)")
+	label12.SetText(Lang.Tr("secondary.QFactor"))
 	outputbox9 := ui.NewLineEdit()
 	outputbox9.SetReadOnly(true)
 
 	//计算结果
 	CalBtn := ui.NewPushButton()
-	CalBtn.SetText("计算")
+	CalBtn.SetText(Lang.Tr("secondary.calBtn"))
 
 	CalBtn.OnClicked(func() {
 		//当两个都不为空的时候，弹出显示框
@@ -289,7 +289,7 @@ func SecCoilInfoForm() {
 
 		} else {
 			messagebox := ui.NewMessageBox()
-			messagebox.SetText("必须要同时输入三个参数！")
+			messagebox.SetText(Lang.Tr("secondary.msgBox"))
 			messagebox.Show()
 			inputBox.Clear()
 			inputBox2.Clear()
@@ -375,6 +375,6 @@ func SecCoilInfoForm() {
 
 	widget := ui.NewWidget()
 	widget.SetLayout(vbox)
-	widget.SetWindowTitle("次级线圈参数计算")
+	widget.SetWindowTitle(Lang.Tr("secondary.WinTitle"))
 	widget.Show()
 }

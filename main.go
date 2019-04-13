@@ -7,9 +7,12 @@ import (
 
 func main() {
 	ui.RunEx(os.Args, func() {
+
+		InitI18n() //Init I18n first
+
 		app := ui.Application()
 		app.SetOrganizationName("sndnvaps.com")
-		app.SetApplicationName("特斯拉线圈计算器")
+		app.SetApplicationName(Lang.Tr("app.tc_desc"))
 
 		Icon := ui.NewPixmap()
 		IconData, _ := Asset("images/tesla.ico")

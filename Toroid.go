@@ -61,18 +61,18 @@ func NewToroidForm() (*ToroidForm, error) {
 	w.QWidget = ui.NewWidget()
 
 	w.btn1 = ui.NewPushButton()
-	w.btn1.SetText("Calculate")
+	w.btn1.SetText(Lang.Tr("toroid.calBtn"))
 
 	w.label_1 = ui.NewLabel()
-	w.label_1.SetText("D1(mm)")
+	w.label_1.SetText(Lang.Tr("toroid.inputD1"))
 	w.le1 = ui.NewLineEdit()
 
 	w.label_2 = ui.NewLabel()
-	w.label_2.SetText("D2(mm)")
+	w.label_2.SetText(Lang.Tr("toroid.inputD2"))
 	w.le2 = ui.NewLineEdit()
 
 	w.label_3 = ui.NewLabel()
-	w.label_3.SetText("Cap(pf)")
+	w.label_3.SetText(Lang.Tr("toroid.outputCap"))
 	w.le3 = ui.NewLineEdit()
 
 	w.picbox = ui.NewLabel()
@@ -92,7 +92,7 @@ func NewToroidForm() (*ToroidForm, error) {
 			w.le3.SetText(output)
 		} else {
 			messagebox := ui.NewMessageBox()
-			messagebox.SetText("必须要同时输入2个数值")
+			messagebox.SetText(Lang.Tr("toroid.msgBox"))
 			messagebox.Show()
 			w.le1.Clear()
 			w.le2.Clear()
@@ -130,6 +130,6 @@ func NewToroidForm() (*ToroidForm, error) {
 
 	w.SetLayout(hboxMain)
 
-	w.SetWindowTitle("Tororid容量计算")
+	w.SetWindowTitle(Lang.Tr("toroid.WinTitle"))
 	return w, nil
 }

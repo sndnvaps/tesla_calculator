@@ -19,10 +19,10 @@ func NewToploadForm() (*ToploadForm, error) {
 	w.SetFixedHeight(80)
 
 	w.btn1 = ui.NewPushButton()
-	w.btn1.SetText("Toroid Cap")
+	w.btn1.SetText(Lang.Tr("topload.toroid"))
 
 	w.btn2 = ui.NewPushButton()
-	w.btn2.SetText("Sphere Cap")
+	w.btn2.SetText(Lang.Tr("topload.sphere"))
 
 	w.btn1.OnClicked(func() {
 		toroid, err := NewToroidForm()
@@ -49,7 +49,7 @@ func NewToploadForm() (*ToploadForm, error) {
 	vbox.AddLayout(hbox)
 
 	w.SetLayout(vbox)
-	w.SetWindowTitle("Topload Cap Calculator")
+	w.SetWindowTitle(Lang.Tr("topload.toploadWinTitle"))
 
 	return w, nil
 }

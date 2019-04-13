@@ -111,38 +111,38 @@ func NewPrimaryCoilForm() (*PrimaryCoilForm, error) {
 	w.QWidget = ui.NewWidget()
 
 	w.btn1 = ui.NewPushButton()
-	w.btn1.SetText("计算")
+	w.btn1.SetText(Lang.Tr("primary.PriCalBtn"))
 
 	w.label_1 = ui.NewLabel()
-	w.label_1.SetText("螺线管直径(D)(mm)")
+	w.label_1.SetText(Lang.Tr("primary.PriFormDia"))
 	w.le1 = ui.NewLineEdit()
 
 	w.label_2 = ui.NewLabel()
-	w.label_2.SetText("线圈匝数(N)")
+	w.label_2.SetText(Lang.Tr("primary.PriTurns"))
 	w.le2 = ui.NewLineEdit()
 
 	w.label_3 = ui.NewLabel()
-	w.label_3.SetText("绕线线经 (W)(mm)")
+	w.label_3.SetText(Lang.Tr("primary.PriDia"))
 	w.le3 = ui.NewLineEdit()
 
 	w.label_4 = ui.NewLabel()
-	w.label_4.SetText("匝间距(S)(mm)")
+	w.label_4.SetText(Lang.Tr("primary.PriSpace"))
 	w.le4 = ui.NewLineEdit()
 
 	w.label_5 = ui.NewLabel()
-	w.label_5.SetText("螺线管高度(H)(mm)")
+	w.label_5.SetText(Lang.Tr("primary.PriFormHeigh"))
 	w.le5 = ui.NewLineEdit()
 
 	w.label_6 = ui.NewLabel()
-	w.label_6.SetText("漆包线长度(米)")
+	w.label_6.SetText(Lang.Tr("primary.PriLength"))
 	w.le6 = ui.NewLineEdit()
 
 	w.label_7 = ui.NewLabel()
-	w.label_7.SetText("电感量(L)(uH)")
+	w.label_7.SetText(Lang.Tr("primary.PriInductance"))
 	w.le7 = ui.NewLineEdit()
 
 	w.label_8 = ui.NewLabel()
-	w.label_8.SetText("寄生电容(pf)")
+	w.label_8.SetText(Lang.Tr("primary.PriParasiticCap"))
 	w.le8 = ui.NewLineEdit()
 
 	w.picbox = ui.NewLabel()
@@ -169,7 +169,7 @@ func NewPrimaryCoilForm() (*PrimaryCoilForm, error) {
 			w.le8.SetText(output[3])
 		} else {
 			messagebox := ui.NewMessageBox()
-			messagebox.SetText("必须要同时输入4个数值")
+			messagebox.SetText(Lang.Tr("primary.PriAboutbox"))
 			messagebox.Show()
 			w.le1.Clear()
 			w.le2.Clear()
@@ -238,7 +238,7 @@ func NewPrimaryCoilForm() (*PrimaryCoilForm, error) {
 
 	w.SetLayout(hboxMain)
 
-	w.SetWindowTitle("初级线圈参数计算")
+	w.SetWindowTitle(Lang.Tr("primary.PriWinTitle"))
 	return w, nil
 
 }

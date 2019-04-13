@@ -27,6 +27,7 @@ Function Clean {
 }
 
 Function CopyDepend {
+    copy-item conf -destination $ReleaseDir\ -Recurse
 	copy-item $gopathTmp\src\github.com\visualfc\goqt\bin\qtdrv.ui.dll -destination $ReleaseDir
 }
 

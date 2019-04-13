@@ -43,14 +43,14 @@ func NewSphereForm() (*SphereForm, error) {
 	w.QWidget = ui.NewWidget()
 
 	w.btn1 = ui.NewPushButton()
-	w.btn1.SetText("Calculate")
+	w.btn1.SetText(Lang.Tr("sphere.calBtn"))
 
 	w.label_1 = ui.NewLabel()
-	w.label_1.SetText("Radius(mm)")
+	w.label_1.SetText(Lang.Tr("sphere.radius"))
 	w.le1 = ui.NewLineEdit()
 
 	w.label_2 = ui.NewLabel()
-	w.label_2.SetText("Cap(pf)")
+	w.label_2.SetText(Lang.Tr("sphere.outputCap"))
 	w.le2 = ui.NewLineEdit()
 
 	//设置 le2 为只读模式
@@ -62,7 +62,7 @@ func NewSphereForm() (*SphereForm, error) {
 			w.le2.SetText(output)
 		} else {
 			messagebox := ui.NewMessageBox()
-			messagebox.SetText("输入的数有问题！")
+			messagebox.SetText(Lang.Tr("sphere.msgBox"))
 			messagebox.Show()
 			w.le1.Clear()
 			w.le2.Clear()
@@ -87,6 +87,6 @@ func NewSphereForm() (*SphereForm, error) {
 
 	w.SetLayout(vbox)
 
-	w.SetWindowTitle("球形电容容量计算")
+	w.SetWindowTitle(Lang.Tr("sphere.WinTitle"))
 	return w, nil
 }

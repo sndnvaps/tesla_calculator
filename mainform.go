@@ -40,25 +40,19 @@ func NewMainWindow() *MainWindowForm {
 
 func (w *MainWindowForm) createActions() {
 
-	aboutAct := ui.NewActionWithTextParent("&About", w)
-	aboutAct.SetStatusTip("Show the application's About box")
+	aboutAct := ui.NewActionWithTextParent(Lang.Tr("help.about"), w)
 	aboutAct.OnTriggered(func() {
-		ui.QMessageBoxAbout(w, "关于特斯拉线圈计算器",
-			w.Tr("特斯拉线圈计算器是使用 goqt 来编写的工具 "+
-				"用于计算制作特斯拉线圈各个过程中使用到的相关参数, "+
-				"目的是简化复杂的计算流程."))
+		ui.QMessageBoxAbout(w, Lang.Tr("help.aboutTC"), Lang.Tr("help.aboutTC_desc"))
 	})
-	aboutQtAct := ui.NewActionWithTextParent("About &Qt", w)
-	aboutQtAct.SetStatusTip("Show the Qt library's About box")
+	aboutQtAct := ui.NewActionWithTextParent(Lang.Tr("help.aboutQt"), w)
 	aboutQtAct.OnTriggered(func() { ui.QApplicationAboutQt() })
 
-	helpMenu := w.MenuBar().AddMenuWithTitle("&Help")
+	helpMenu := w.MenuBar().AddMenuWithTitle(Lang.Tr("help.help"))
 	helpMenu.AddAction(aboutAct)
 	helpMenu.AddSeparator()
 	helpMenu.AddAction(aboutQtAct)
 
-	w.SetWindowTitle("特斯拉线圈计算器")
-	w.StatusBar().ShowMessage("Ready")
+	w.SetWindowTitle(Lang.Tr("app.tc_desc"))
 }
 
 func NewMainForm() (*MainForm, error) {
@@ -70,19 +64,19 @@ func NewMainForm() (*MainForm, error) {
 	w.SetFixedHeight(233)
 
 	w.btn1 = ui.NewPushButton()
-	w.btn1.SetText("计算初始参数")
+	w.btn1.SetText(Lang.Tr("main.calPriInfo"))
 
 	w.btn2 = ui.NewPushButton()
-	w.btn2.SetText("计算顶端电容")
+	w.btn2.SetText(Lang.Tr("main.calTopCap"))
 
 	w.btn3 = ui.NewPushButton()
-	w.btn3.SetText("计算次级线圈参数")
+	w.btn3.SetText(Lang.Tr("main.calSecInfo"))
 
 	w.btn4 = ui.NewPushButton()
-	w.btn4.SetText("估算电弧长度")
+	w.btn4.SetText(Lang.Tr("main.CalSparkLength"))
 
 	w.btn5 = ui.NewPushButton()
-	w.btn5.SetText("计算初级与次级的耦合度")
+	w.btn5.SetText(Lang.Tr("main.CalCoilCoupling"))
 
 	w.btn1.OnClicked(func() {
 
@@ -135,7 +129,7 @@ func NewMainForm() (*MainForm, error) {
 	vbox.AddLayout(hbox3)
 
 	w.SetLayout(vbox)
-	w.SetWindowTitle("特斯拉线圈计算器")
+	w.SetWindowTitle(Lang.Tr("app.tc_desc"))
 	return w, nil
 
 }

@@ -64,37 +64,37 @@ func NewCoefficientForm() (*CoefficientForm, error) {
 	//w.SetFixedHeight(280)
 
 	w.btn1 = ui.NewPushButton()
-	w.btn1.SetText("计算")
+	w.btn1.SetText(Lang.Tr("coupling.calBtn"))
 
 	w.label_1 = ui.NewLabel()
-	w.label_1.SetText("正向测试电感值")
+	w.label_1.SetText(Lang.Tr("coupling.forwardTest"))
 	w.le1 = ui.NewLineEdit()
 	//QWidget::setGeometry(int,int,int,int)
 	//w.le1.SetGeometryWithXYWidthHeight(150,10,113,20)
 
 	w.label_2 = ui.NewLabel()
-	w.label_2.SetText("反向测试电感值")
+	w.label_2.SetText(Lang.Tr("coupling.reverseTest"))
 	w.le2 = ui.NewLineEdit()
 	//w.le2.SetGeometryWithXYWidthHeight(150,40,113,20)
 
 	w.label_3 = ui.NewLabel()
-	w.label_3.SetText("线圈电感L1")
+	w.label_3.SetText(Lang.Tr("coupling.PriInduct"))
 	//w.label_3.SetGeometryWithXYWidthHeight(20,70,111,20)
 	w.le3 = ui.NewLineEdit()
 	//w.le3.SetGeometryWithXYWidthHeight(150,70,113,20)
 
 	w.label_4 = ui.NewLabel()
-	w.label_4.SetText("线圈电感L2")
+	w.label_4.SetText(Lang.Tr("coupling.SecInduct"))
 	w.le4 = ui.NewLineEdit()
 	//w.le4.SetGeometryWithXYWidthHeight(150,100,113,20)
 
 	w.label_5 = ui.NewLabel()
-	w.label_5.SetText("互感系数")
+	w.label_5.SetText(Lang.Tr("coupling.mutualInduct"))
 	w.le5 = ui.NewLineEdit()
 	//w.le5.SetGeometryWithXYWidthHeight(150,170,113,20)
 
 	w.label_6 = ui.NewLabel()
-	w.label_6.SetText("耦合系数")
+	w.label_6.SetText(Lang.Tr("coupling.couplingcoefficien"))
 	w.le6 = ui.NewLineEdit()
 	//w.le6.SetGeometryWithXYWidthHeight(150,200,113,20)
 
@@ -119,7 +119,7 @@ func NewCoefficientForm() (*CoefficientForm, error) {
 			w.le6.SetText(Inductance)
 		} else {
 			messagebox := ui.NewMessageBox()
-			messagebox.SetText("必须要同时输入4个数值")
+			messagebox.SetText(Lang.Tr("coupling.msgBox"))
 			messagebox.Show()
 			w.le1.Clear()
 			w.le2.Clear()
@@ -176,6 +176,6 @@ func NewCoefficientForm() (*CoefficientForm, error) {
 
 	w.SetLayout(hboxMain)
 
-	w.SetWindowTitle("耦合系数计算器")
+	w.SetWindowTitle(Lang.Tr("coupling.WinTitle"))
 	return w, nil
 }

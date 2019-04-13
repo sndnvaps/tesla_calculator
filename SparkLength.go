@@ -39,24 +39,24 @@ func SparkLengthCal(Length, Power string) string {
 func SparkLengthForm() {
 
 	label := ui.NewLabel()
-	label.SetText("电弧长度(cm)") //Length
+	label.SetText(Lang.Tr("spark.sparkLength")) //Length
 	//输入框
 	inputBox := ui.NewLineEdit()
 	//------------------------------
 	label2 := ui.NewLabel()
-	label2.SetText("变压器功率(瓦特)") // LReverse
+	label2.SetText(Lang.Tr("spark.transPower")) // LReverse
 	//输入框2
 	inputBox2 := ui.NewLineEdit()
 
 	//计算结果
 	CalBtn := ui.NewPushButton()
-	CalBtn.SetText("计算")
+	CalBtn.SetText(Lang.Tr("spark.calBtn"))
 
 	CalBtn.OnClicked(func() {
 		//当两个都不为空的时候，弹出显示框
 		if (strings.Compare(inputBox.Text(), "") != 0) && (strings.Compare(inputBox2.Text(), "") != 0) {
 			messagebox := ui.NewMessageBox()
-			messagebox.SetText("电弧长度与功率只能填写一个")
+			messagebox.SetText(Lang.Tr("spark.msgBox"))
 			messagebox.Show()
 			inputBox.Clear()
 			inputBox2.Clear()
@@ -88,6 +88,6 @@ func SparkLengthForm() {
 
 	widget := ui.NewWidget()
 	widget.SetLayout(vbox)
-	widget.SetWindowTitle("电弧长度计算器")
+	widget.SetWindowTitle(Lang.Tr("spark.WinTitle"))
 	widget.Show()
 }
