@@ -6,3 +6,4 @@ Release
 tesla_calculator
 tesla_calculator.exe
 *.AppImage
+*.*~
