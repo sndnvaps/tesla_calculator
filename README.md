@@ -55,7 +55,17 @@ Support platform(Qt 5.11.1)
         
 # How to change the defult User Interface
 
-       1. change [conf/app.ini](conf/app.ini),change the `defaultLang` to en-US or zh-CN what you like
+   1. change [conf/app.ini](conf/app.ini#L4),change the <b>defaultLang</b> to <b>en-US</b> or <b>zh-CN</b> what you like
+   
+      ```ini
+       #filename = conf/app.ini
+       apps = tesla_calculator
+
+       [i18n]
+       defaultLang = en-US 
+       langs = en-US,zh-CN
+       names = English,简体中文
+      ```
 
 App Pics
 
