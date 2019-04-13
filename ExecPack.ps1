@@ -6,7 +6,7 @@
 # you must install goqt first
 $QtVersion="qt5.11.1"
 $AppName="tesla_calculator"
-$AppVersion="1.5.0"
+$AppVersion=$(git rev-parse --short HEAD)
 $ReleaseDir="Release"
 $DependDir="Depends"
 $gopathTmp=$env:GOPATH
