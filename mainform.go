@@ -2,8 +2,6 @@ package main
 
 import (
 	//"errors"
-	"github.com/Unknwon/i18n"
-	"github.com/sndnvaps/tesla_calculator/setting"
 	"github.com/visualfc/goqt/ui"
 	"log"
 	"reflect"

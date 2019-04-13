@@ -15,13 +15,6 @@
 
 package setting
 
-import (
-	"fmt"
-
-	"github.com/Unknwon/com"
-	"gopkg.in/ini.v1"
-)
-
 const (
 	CFG_PATH        = "conf/app.ini"
 	CFG_CUSTOM_PATH = "conf/custom.ini"
