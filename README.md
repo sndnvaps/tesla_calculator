@@ -69,10 +69,10 @@ Support platform(Qt 5.11.1)
 
 App Pics
 
-![pic1](pictures/pic_mainform.png)
+![pic1](pictures/pic_mainform.png "MainForm")
 
-![pic2](pictures/pic_all_forms.png)
-![pic3](pictures/pic_all_forms-en-US.png)
+![pic2](pictures/pic_all_forms.png "中文界面")
+![pic3](pictures/pic_all_forms-en-US.png "Eng User-Interface")
    
 ## License
 #### [MIT](https://sndnvaps.mit-license.org/2017)
