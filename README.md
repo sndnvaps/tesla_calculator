@@ -72,6 +72,7 @@ App Pics
 ![pic1](pictures/pic_mainform.png)
 
 ![pic2](pictures/pic_all_forms.png)
+![pic3](pictures/pic_all_forms-en-US.png)
    
 ## License
 #### [MIT](https://sndnvaps.mit-license.org/2017)
