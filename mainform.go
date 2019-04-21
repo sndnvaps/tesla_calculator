@@ -53,6 +53,13 @@ func (w *MainWindowForm) createActions() {
 	helpMenu.AddSeparator()
 	helpMenu.AddAction(aboutQtAct)
 
+	chDefLangAct := ui.NewActionWithTextParent(Lang.Tr("setting.changedeflang"), w)
+	chDefLangAct.OnTriggered(func() {
+		SetDefLangForm(w)
+	})
+	settingMenu := w.MenuBar().AddMenuWithTitle(Lang.Tr("setting.setting"))
+	settingMenu.AddAction(chDefLangAct)
+
 	w.SetWindowTitle(Lang.Tr("app.tc_desc"))
 }
 

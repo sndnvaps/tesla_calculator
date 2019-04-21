@@ -26,6 +26,8 @@ var (
 
 	Langs, Names []string
 	DefLang      string
+        LangsMap map[string]string
+        LangsMapNum map[string]int
 )
 
 func init() {
@@ -41,7 +43,16 @@ func init() {
 		}
 	}
 
+        LangsMap = make(map[string]string)
+        LangsMapNum = make(map[string]int)
+        
 	Langs = Cfg.Section("i18n").Key("langs").Strings(",")
 	Names = Cfg.Section("i18n").Key("names").Strings(",")
+
+        for key , val := range Langs {
+               LangsMap[Names[key]] =  val
+               LangsMapNum[Langs[key]] = key
+        }
+
 	DefLang = Cfg.Section("i18n").Key("defaultLang").String()
 }
