@@ -9,6 +9,7 @@ import (
 	"strings"
 )
 
+//ToroidForm struct
 type ToroidForm struct {
 	*ui.QWidget
 	btn1 *ui.QPushButton // 计算按钮
@@ -16,9 +17,9 @@ type ToroidForm struct {
 	le2  *ui.QLineEdit   //输入框
 	le3  *ui.QLineEdit   //输出框
 
-	label_1 *ui.QLabel // D1
-	label_2 *ui.QLabel // D2
-	label_3 *ui.QLabel // C
+	label1 *ui.QLabel // D1
+	label2 *ui.QLabel // D2
+	label3 *ui.QLabel // C
 
 	picbox *ui.QLabel //Pic_box
 }
@@ -30,6 +31,7 @@ type ToroidForm struct {
  *@return
  * 返回的是计算得到的电容 ,单位pf
  */
+//func TororidCalCapacitance(diameter1 string, diameter2 string) string
 func TororidCalCapacitance(diameter1 string, diameter2 string) string {
 
 	const pi = 3.14159
@@ -56,6 +58,7 @@ func TororidCalCapacitance(diameter1 string, diameter2 string) string {
 	return fmt.Sprintf("%0.6f", c)
 }
 
+//func NewToroidForm() (*ToroidForm, error)
 func NewToroidForm() (*ToroidForm, error) {
 
 	w := &ToroidForm{}
@@ -64,16 +67,16 @@ func NewToroidForm() (*ToroidForm, error) {
 	w.btn1 = ui.NewPushButton()
 	w.btn1.SetText(Lang.Tr("toroid.calBtn"))
 
-	w.label_1 = ui.NewLabel()
-	w.label_1.SetText(Lang.Tr("toroid.inputD1"))
+	w.label1 = ui.NewLabel()
+	w.label1.SetText(Lang.Tr("toroid.inputD1"))
 	w.le1 = ui.NewLineEdit()
 
-	w.label_2 = ui.NewLabel()
-	w.label_2.SetText(Lang.Tr("toroid.inputD2"))
+	w.label2 = ui.NewLabel()
+	w.label2.SetText(Lang.Tr("toroid.inputD2"))
 	w.le2 = ui.NewLineEdit()
 
-	w.label_3 = ui.NewLabel()
-	w.label_3.SetText(Lang.Tr("toroid.outputCap"))
+	w.label3 = ui.NewLabel()
+	w.label3.SetText(Lang.Tr("toroid.outputCap"))
 	w.le3 = ui.NewLineEdit()
 
 	w.picbox = ui.NewLabel()
@@ -102,15 +105,15 @@ func NewToroidForm() (*ToroidForm, error) {
 	})
 
 	hbox := ui.NewHBoxLayout()
-	hbox.AddWidget(w.label_1)
+	hbox.AddWidget(w.label1)
 	hbox.AddWidget(w.le1)
 
 	hbox2 := ui.NewHBoxLayout()
-	hbox2.AddWidget(w.label_2)
+	hbox2.AddWidget(w.label2)
 	hbox2.AddWidget(w.le2)
 
 	hbox3 := ui.NewHBoxLayout()
-	hbox3.AddWidget(w.label_3)
+	hbox3.AddWidget(w.label3)
 	hbox3.AddWidget(w.le3)
 
 	hbox4 := ui.NewHBoxLayout()

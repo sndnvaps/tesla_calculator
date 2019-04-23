@@ -5,12 +5,14 @@ import (
 	"log"
 )
 
-type ToploadForm struct { //此为widget,
+//ToploadForm struct
+type ToploadForm struct {
 	*ui.QWidget
-	btn1 *ui.QPushButton //
+	btn1 *ui.QPushButton
 	btn2 *ui.QPushButton
 }
 
+//func NewToploadForm() (*ToploadForm, error)
 func NewToploadForm() (*ToploadForm, error) {
 	w := &ToploadForm{}
 	w.QWidget = ui.NewWidget()

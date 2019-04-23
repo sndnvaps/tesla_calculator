@@ -10,8 +10,10 @@ import (
 	"strings"
 )
 
+//Unit = 25.4, mm -> inch , 25.4mm / Unit = 1 inch
 var Unit float64 = 25.4 //
 
+//PrimaryCoilForm
 type PrimaryCoilForm struct {
 	*ui.QWidget
 	btn1 *ui.QPushButton // 计算按钮
@@ -25,19 +27,19 @@ type PrimaryCoilForm struct {
 	le7 *ui.QLineEdit //输出框
 	le8 *ui.QLineEdit //输出框
 
-	label_1 *ui.QLabel //
-	label_2 *ui.QLabel
-	label_3 *ui.QLabel
-	label_4 *ui.QLabel //
-	label_5 *ui.QLabel
-	label_6 *ui.QLabel
-	label_7 *ui.QLabel //
-	label_8 *ui.QLabel
+	label1 *ui.QLabel
+	label2 *ui.QLabel
+	label3 *ui.QLabel
+	label4 *ui.QLabel
+	label5 *ui.QLabel
+	label6 *ui.QLabel
+	label7 *ui.QLabel
+	label8 *ui.QLabel
 
 	picbox *ui.QLabel //用于放图片
 }
 
-//返回螺线管高度
+//func FormHeight(N, S, W string) string
 func FormHeight(N, S, W string) string {
 	n, _ := strconv.ParseFloat(N, 64)
 	s, _ := strconv.ParseFloat(S, 64)
@@ -46,13 +48,7 @@ func FormHeight(N, S, W string) string {
 	return fmt.Sprintf("%0.6f", h) //返回的单位为mm
 }
 
-//参数列表：
-/*N -> 线圈匝数
- *D -> 螺丝管直径， 单位mm
- *返回值：
- * 返回的结果为，使用的线长，单位m
- *
- */
+//func WireLong(N, D string) string
 func WireLong(N, D string) string {
 	n, _ := strconv.ParseFloat(N, 64)
 	d, _ := strconv.ParseFloat(D, 64)
@@ -60,7 +56,7 @@ func WireLong(N, D string) string {
 	return fmt.Sprintf("%0.6f", w1)
 }
 
-//
+//func CalcCap(H, D string) string
 func CalcCap(H, D string) string {
 	h, _ := strconv.ParseFloat(H, 64) //单位mm
 	d, _ := strconv.ParseFloat(D, 64) //单位mm
@@ -74,6 +70,7 @@ func CalcCap(H, D string) string {
 	return fmt.Sprintf("%0.6f", cs)
 }
 
+//func CalcInductance(N, D, H string) string
 func CalcInductance(N, D, H string) string {
 	n, _ := strconv.ParseFloat(N, 64)
 	h, _ := strconv.ParseFloat(H, 64) //单位mm
@@ -88,14 +85,7 @@ func CalcInductance(N, D, H string) string {
 	return fmt.Sprintf("%0.6f", i)
 }
 
-/*
- *
- *
- *[4]string { h, long, i, cap } -> {螺线管高度mm, 漆包线长度m, 电感量(L), 寄生电容(pf)  }
- *
- *
- */
-
+//func CalPrimaryCoilInfo(D, N, W, S string) [4]string
 func CalPrimaryCoilInfo(D, N, W, S string) [4]string {
 	var output [4]string //用于存放输出结果
 	H := FormHeight(N, S, W)
@@ -106,6 +96,8 @@ func CalPrimaryCoilInfo(D, N, W, S string) [4]string {
 
 	return output
 }
+
+//func NewPrimaryCoilForm() (*PrimaryCoilForm, error)
 func NewPrimaryCoilForm() (*PrimaryCoilForm, error) {
 
 	w := &PrimaryCoilForm{}
@@ -114,36 +106,36 @@ func NewPrimaryCoilForm() (*PrimaryCoilForm, error) {
 	w.btn1 = ui.NewPushButton()
 	w.btn1.SetText(Lang.Tr("primary.PriCalBtn"))
 
-	w.label_1 = ui.NewLabel()
-	w.label_1.SetText(Lang.Tr("primary.PriFormDia"))
+	w.label1 = ui.NewLabel()
+	w.label1.SetText(Lang.Tr("primary.PriFormDia"))
 	w.le1 = ui.NewLineEdit()
 
-	w.label_2 = ui.NewLabel()
-	w.label_2.SetText(Lang.Tr("primary.PriTurns"))
+	w.label2 = ui.NewLabel()
+	w.label2.SetText(Lang.Tr("primary.PriTurns"))
 	w.le2 = ui.NewLineEdit()
 
-	w.label_3 = ui.NewLabel()
-	w.label_3.SetText(Lang.Tr("primary.PriDia"))
+	w.label3 = ui.NewLabel()
+	w.label3.SetText(Lang.Tr("primary.PriDia"))
 	w.le3 = ui.NewLineEdit()
 
-	w.label_4 = ui.NewLabel()
-	w.label_4.SetText(Lang.Tr("primary.PriSpace"))
+	w.label4 = ui.NewLabel()
+	w.label4.SetText(Lang.Tr("primary.PriSpace"))
 	w.le4 = ui.NewLineEdit()
 
-	w.label_5 = ui.NewLabel()
-	w.label_5.SetText(Lang.Tr("primary.PriFormHeigh"))
+	w.label5 = ui.NewLabel()
+	w.label5.SetText(Lang.Tr("primary.PriFormHeigh"))
 	w.le5 = ui.NewLineEdit()
 
-	w.label_6 = ui.NewLabel()
-	w.label_6.SetText(Lang.Tr("primary.PriLength"))
+	w.label6 = ui.NewLabel()
+	w.label6.SetText(Lang.Tr("primary.PriLength"))
 	w.le6 = ui.NewLineEdit()
 
-	w.label_7 = ui.NewLabel()
-	w.label_7.SetText(Lang.Tr("primary.PriInductance"))
+	w.label7 = ui.NewLabel()
+	w.label7.SetText(Lang.Tr("primary.PriInductance"))
 	w.le7 = ui.NewLineEdit()
 
-	w.label_8 = ui.NewLabel()
-	w.label_8.SetText(Lang.Tr("primary.PriParasiticCap"))
+	w.label8 = ui.NewLabel()
+	w.label8.SetText(Lang.Tr("primary.PriParasiticCap"))
 	w.le8 = ui.NewLineEdit()
 
 	w.picbox = ui.NewLabel()
@@ -185,38 +177,38 @@ func NewPrimaryCoilForm() (*PrimaryCoilForm, error) {
 	})
 
 	hbox := ui.NewHBoxLayout()
-	hbox.AddWidget(w.label_1)
+	hbox.AddWidget(w.label1)
 	hbox.AddWidget(w.le1)
 
 	hbox2 := ui.NewHBoxLayout()
-	hbox2.AddWidget(w.label_2)
+	hbox2.AddWidget(w.label2)
 	hbox2.AddWidget(w.le2)
 
 	hbox3 := ui.NewHBoxLayout()
-	hbox3.AddWidget(w.label_3)
+	hbox3.AddWidget(w.label3)
 	hbox3.AddWidget(w.le3)
 
 	hbox4 := ui.NewHBoxLayout()
-	hbox4.AddWidget(w.label_4)
+	hbox4.AddWidget(w.label4)
 	hbox4.AddWidget(w.le4)
 
 	hbox5 := ui.NewHBoxLayout()
 	hbox5.AddWidget(w.btn1)
 
 	hbox6 := ui.NewHBoxLayout()
-	hbox6.AddWidget(w.label_5)
+	hbox6.AddWidget(w.label5)
 	hbox6.AddWidget(w.le5)
 
 	hbox7 := ui.NewHBoxLayout()
-	hbox7.AddWidget(w.label_6)
+	hbox7.AddWidget(w.label6)
 	hbox7.AddWidget(w.le6)
 
 	hbox8 := ui.NewHBoxLayout()
-	hbox8.AddWidget(w.label_7)
+	hbox8.AddWidget(w.label7)
 	hbox8.AddWidget(w.le7)
 
 	hbox9 := ui.NewHBoxLayout()
-	hbox9.AddWidget(w.label_8)
+	hbox9.AddWidget(w.label8)
 	hbox9.AddWidget(w.le8)
 
 	hbox10 := ui.NewHBoxLayout()

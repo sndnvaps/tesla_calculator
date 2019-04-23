@@ -7,24 +7,28 @@ import (
 	"reflect"
 )
 
+//MainWindowForm struct
 type MainWindowForm struct {
 	*ui.QMainWindow
 	widget *MainForm //我们要加载 MainForm 到这里
 }
 
-type MainForm struct { //此为widget,
+//MainForm struct
+type MainForm struct {
 	*ui.QWidget
-	btn1 *ui.QPushButton //
+	btn1 *ui.QPushButton
 	btn2 *ui.QPushButton
 	btn3 *ui.QPushButton
 	btn4 *ui.QPushButton
 	btn5 *ui.QPushButton
 }
 
+//func IsValidDriver(v ui.Driver) bool
 func IsValidDriver(v ui.Driver) bool {
 	return !reflect.ValueOf(v).IsNil()
 }
 
+//func NewMainWindow() *MainWindowForm
 func NewMainWindow() *MainWindowForm {
 
 	w := &MainWindowForm{}
@@ -39,6 +43,7 @@ func NewMainWindow() *MainWindowForm {
 	return w
 }
 
+//func (w *MainWindowForm) createActions()
 func (w *MainWindowForm) createActions() {
 
 	aboutAct := ui.NewActionWithTextParent(Lang.Tr("help.about"), w)
@@ -63,6 +68,7 @@ func (w *MainWindowForm) createActions() {
 	w.SetWindowTitle(Lang.Tr("app.tc_desc"))
 }
 
+//func NewMainForm() (*MainForm, error)
 func NewMainForm() (*MainForm, error) {
 
 	w := &MainForm{}

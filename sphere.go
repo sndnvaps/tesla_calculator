@@ -8,14 +8,14 @@ import (
 	"strconv"
 )
 
+//SphereForm struct
 type SphereForm struct {
 	*ui.QWidget
-	btn1    *ui.QPushButton // 计算按钮
-	le1     *ui.QLineEdit   //输入框
-	le2     *ui.QLineEdit   //输出框
-	label_1 *ui.QLabel      //
-	label_2 *ui.QLabel
-	label_3 *ui.QLabel
+	btn1   *ui.QPushButton // 计算按钮
+	le1    *ui.QLineEdit   //输入框
+	le2    *ui.QLineEdit   //输出框
+	label1 *ui.QLabel
+	label2 *ui.QLabel
 }
 
 /*
@@ -24,6 +24,7 @@ type SphereForm struct {
  *@return
  * 返回的是计算得到的电容 ,单位pf
  */
+//func calccapacitance(radius string) string
 func calccapacitance(radius string) string {
 	const k = 1.01
 	const ki = 39.3701
@@ -37,6 +38,7 @@ func calccapacitance(radius string) string {
 	return fmt.Sprintf("%0.6f", c)
 }
 
+//func NewSphereForm() (*SphereForm, error)
 func NewSphereForm() (*SphereForm, error) {
 
 	w := &SphereForm{}
@@ -45,12 +47,12 @@ func NewSphereForm() (*SphereForm, error) {
 	w.btn1 = ui.NewPushButton()
 	w.btn1.SetText(Lang.Tr("sphere.calBtn"))
 
-	w.label_1 = ui.NewLabel()
-	w.label_1.SetText(Lang.Tr("sphere.radius"))
+	w.label1 = ui.NewLabel()
+	w.label1.SetText(Lang.Tr("sphere.radius"))
 	w.le1 = ui.NewLineEdit()
 
-	w.label_2 = ui.NewLabel()
-	w.label_2.SetText(Lang.Tr("sphere.outputCap"))
+	w.label2 = ui.NewLabel()
+	w.label2.SetText(Lang.Tr("sphere.outputCap"))
 	w.le2 = ui.NewLineEdit()
 
 	//设置 le2 为只读模式
@@ -70,11 +72,11 @@ func NewSphereForm() (*SphereForm, error) {
 	})
 
 	hbox := ui.NewHBoxLayout()
-	hbox.AddWidget(w.label_1)
+	hbox.AddWidget(w.label1)
 	hbox.AddWidget(w.le1)
 
 	hbox2 := ui.NewHBoxLayout()
-	hbox2.AddWidget(w.label_2)
+	hbox2.AddWidget(w.label2)
 	hbox2.AddWidget(w.le2)
 
 	hbox3 := ui.NewHBoxLayout()

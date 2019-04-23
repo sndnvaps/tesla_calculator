@@ -18,8 +18,8 @@ func main() {
 		Icon := ui.NewPixmap()
 		IconData, _ := setting.Asset("images/tesla.ico")
 		Icon.LoadFromData(IconData)
-		TC_Icon := ui.NewIconWithPixmap(Icon)
-		app.SetWindowIcon(TC_Icon)
+		TCIcon := ui.NewIconWithPixmap(Icon)
+		app.SetWindowIcon(TCIcon)
 
 		w := NewMainWindow()
 		w.Show()

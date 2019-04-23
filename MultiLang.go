@@ -6,12 +6,15 @@ import (
 	"github.com/sndnvaps/tesla_calculator/setting"
 )
 
+// Controller struct -> i18n.Locale
 type Controller struct {
 	i18n.Locale
 }
 
+// Lang for i18n.Tr()
 var Lang *Controller
 
+//Init i18n, Set default Language
 func InitI18n() error {
 
 	langs := setting.Langs

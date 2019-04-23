@@ -24,6 +24,7 @@ import (
  * s3 = 次级线圈寄生电容 (pf)
  * s4 = 在不加均压环的状态下的 谐振频率 (hz)
  */
+//func SecCoilInfoCal(IFormHight, IFormDiameter, IWireDiameter string) [9]string
 func SecCoilInfoCal(IFormHight, IFormDiameter, IWireDiameter string) [9]string {
 	var output [9]string = [9]string{"0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"} //默认初始化值为全部 0.0
 	//当三个参数，都不为空的时候
@@ -67,7 +68,7 @@ func SecCoilInfoCal(IFormHight, IFormDiameter, IWireDiameter string) [9]string {
  *@return
  * string -> 次级线圈的箍数 （FormHight * 10 / (WireDiameter + WireDiameter/10)）//此处的0.97为修正系数，因为考虑的手工绕线的情况
  */
-
+//func SecCoilTurns(FormHight, WireDiameter float64) string
 func SecCoilTurns(FormHight, WireDiameter float64) string {
 	MagnetWireDiameter := WireDiameter //毫米
 	IFormHeight := (FormHight * 10.0)  //将厘米转换成 毫米
@@ -83,6 +84,7 @@ func SecCoilTurns(FormHight, WireDiameter float64) string {
  * string -> 次级线圈的寄生电容
  */
 // 毫米转 英寸 需要除 25.4
+//func SecCap(FormHight, FormDiameter float64) string
 func SecCap(FormHight, FormDiameter float64) string {
 	var u float64 = 25.4                       //
 	IFormHeight := (float64)(FormHight * 10.0) //将厘米转换成 毫米
@@ -100,6 +102,7 @@ func SecCap(FormHight, FormDiameter float64) string {
  *@return
  * string -> 次级线圈的电感(μH)
  */
+//func SecInduct(Turns string, FormHight, FormDiameter float64) string
 func SecInduct(Turns string, FormHight, FormDiameter float64) string {
 	ITurns, _ := strconv.ParseFloat(Turns, 32)                                                                                  //
 	IFormHeight := (float64)(FormHight * (1 / 2.54))                                                                            //将厘米转换成 英寸
@@ -116,10 +119,11 @@ func SecInduct(Turns string, FormHight, FormDiameter float64) string {
  * string -> 次级线圈在不加均压环的状态下的 谐振频率 hz
  */
 //1/(2*pi*sqrt(L*C))
+//func SecResonant(SecCap, SecInduct string) string
 func SecResonant(SecCap, SecInduct string) string {
-	seccap_x, _ := strconv.ParseFloat(SecCap, 64)
-	secinduct_y, _ := strconv.ParseFloat(SecInduct, 64)
-	output := (float64)(1 / (2 * math.Pi * math.Sqrt((seccap_x*math.Pow(10, -12.0))*(secinduct_y*math.Pow(10, -6.0))))) //谐振频率 (hz)
+	seccapX, _ := strconv.ParseFloat(SecCap, 64)
+	secinductY, _ := strconv.ParseFloat(SecInduct, 64)
+	output := (float64)(1 / (2 * math.Pi * math.Sqrt((seccapX*math.Pow(10, -12.0))*(secinductY*math.Pow(10, -6.0))))) //谐振频率 (hz)
 	return fmt.Sprintf("%0.6f", output)
 }
 
@@ -130,6 +134,7 @@ func SecResonant(SecCap, SecInduct string) string {
  * string -> skin depth (m)
  * output = math.Sqrt((0.0179*math.Pow(10,-6)/(math.Pi*math.Pow(10,-7))))*(1/(math.Sqrt(Fres)))
  */
+//func SkinDepth(Fres string) string
 func SkinDepth(Fres string) string {
 
 	fres, _ := strconv.ParseFloat(Fres, 64)
@@ -143,11 +148,12 @@ func SkinDepth(Fres string) string {
  * CoilDia -> mm
  *
  */
+//func ResitanceDC(WireDia, CoilDia, Turns string) string
 func ResitanceDC(WireDia, CoilDia, Turns string) string {
-	CoilDia_x, _ := strconv.ParseFloat(CoilDia, 64)
-	Turns_x, _ := strconv.ParseFloat(Turns, 64)
-	WireDia_x, _ := strconv.ParseFloat(WireDia, 64)
-	output := (4 * (CoilDia_x / 1000) * Turns_x * (0.0179 * math.Pow(10, -6))) / ((WireDia_x / 1000) * (WireDia_x / 1000))
+	CoilDiaX, _ := strconv.ParseFloat(CoilDia, 64)
+	TurnsX, _ := strconv.ParseFloat(Turns, 64)
+	WireDiaX, _ := strconv.ParseFloat(WireDia, 64)
+	output := (4 * (CoilDiaX / 1000) * TurnsX * (0.0179 * math.Pow(10, -6))) / ((WireDiaX / 1000) * (WireDiaX / 1000))
 	return fmt.Sprintf("%0.8f", output)
 }
 
@@ -162,14 +168,15 @@ func ResitanceDC(WireDia, CoilDia, Turns string) string {
        (((WireDia/1000)^2)/(4*(((WireDia/1000)*SkinDepth) - (SkinDepth^2))))
  *
 */
+//func SkinEffecFactor(WireDia, SkinDepth string) string
 func SkinEffecFactor(WireDia, SkinDepth string) string {
-	WireDia_x, _ := strconv.ParseFloat(WireDia, 64)
-	SkinDepth_x, _ := strconv.ParseFloat(SkinDepth, 64)
+	WireDiaX, _ := strconv.ParseFloat(WireDia, 64)
+	SkinDepthX, _ := strconv.ParseFloat(SkinDepth, 64)
 	var output float64 = 0.0
-	if (SkinDepth_x * 1000) > (WireDia_x / 2) {
+	if (SkinDepthX * 1000) > (WireDiaX / 2) {
 		output = 1.0
 	} else {
-		output = math.Pow((WireDia_x/1000.0), 2) / (4 * (((WireDia_x / 1000.0) * SkinDepth_x) - (math.Pow(SkinDepth_x, 2))))
+		output = math.Pow((WireDiaX/1000.0), 2) / (4 * (((WireDiaX / 1000.0) * SkinDepthX) - (math.Pow(SkinDepthX, 2))))
 	}
 	return fmt.Sprintf("%0.6f", output)
 }
@@ -182,6 +189,7 @@ func SkinEffecFactor(WireDia, SkinDepth string) string {
  * output -> ohm
  *
  */
+//func ResitanceAC(skinEffectFactor, ResistanceDC string) string
 func ResitanceAC(skinEffectFactor, ResistanceDC string) string {
 
 	skineffect, _ := strconv.ParseFloat(skinEffectFactor, 64)
@@ -199,6 +207,7 @@ func ResitanceAC(skinEffectFactor, ResistanceDC string) string {
  * output -> Quality Factor of Secondaly coil -> Q
  *   output = (2 * math.Pi * Fres *(Induct/1000000))/ResitanceAC
  */
+//func SecQFactor(Fres, Induct, ResitanceAC string) string
 func SecQFactor(Fres, Induct, ResitanceAC string) string {
 	fres, _ := strconv.ParseFloat(Fres, 64)
 	induct, _ := strconv.ParseFloat(Induct, 64)
@@ -207,6 +216,7 @@ func SecQFactor(Fres, Induct, ResitanceAC string) string {
 	return fmt.Sprintf("%0.4f", output)
 }
 
+//func SecCoilInfoForm()
 func SecCoilInfoForm() {
 
 	label := ui.NewLabel()

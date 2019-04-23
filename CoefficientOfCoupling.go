@@ -9,6 +9,7 @@ import (
 	"strings"
 )
 
+// CoefficientForm struct
 type CoefficientForm struct {
 	*ui.QWidget
 	btn1 *ui.QPushButton // 计算按钮
@@ -20,12 +21,12 @@ type CoefficientForm struct {
 	le5 *ui.QLineEdit //输出框
 	le6 *ui.QLineEdit //输出框
 
-	label_1 *ui.QLabel //
-	label_2 *ui.QLabel
-	label_3 *ui.QLabel
-	label_4 *ui.QLabel //
-	label_5 *ui.QLabel
-	label_6 *ui.QLabel
+	label1 *ui.QLabel
+	label2 *ui.QLabel
+	label3 *ui.QLabel
+	label4 *ui.QLabel
+	label5 *ui.QLabel
+	label6 *ui.QLabel
 
 	picbox *ui.QLabel //用于放图片
 }
@@ -34,29 +35,32 @@ type CoefficientForm struct {
  *  //MutualInductance = (LForward - LReverse)/4
  *  //CouplingDegree =  MutualInductance / sqrt (L1*L2)
  */
+//func CoefficientOfCouplingCal(LForward, LReverse, L1, L2 string) string
 func CoefficientOfCouplingCal(LForward, LReverse, L1, L2 string) string {
 	if (strings.Compare(LForward, "") != 0) && (strings.Compare(LReverse, "") != 0) && (strings.Compare(L1, "") != 0) && (strings.Compare(L2, "") != 0) {
-		LForward_x, _ := strconv.ParseFloat(LForward, 32)
-		LReverse_y, _ := strconv.ParseFloat(LReverse, 32)
-		L1_x, _ := strconv.ParseFloat(L1, 32)
-		L2_y, _ := strconv.ParseFloat(L2, 32)
-		res := (math.Abs(LForward_x-LReverse_y) / 4) / (math.Sqrt(L1_x * L2_y))
+		LForwardX, _ := strconv.ParseFloat(LForward, 32)
+		LReverseY, _ := strconv.ParseFloat(LReverse, 32)
+		L1X, _ := strconv.ParseFloat(L1, 32)
+		L2Y, _ := strconv.ParseFloat(L2, 32)
+		res := (math.Abs(LForwardX-LReverseY) / 4) / (math.Sqrt(L1X * L2Y))
 		return fmt.Sprintf("%0.6f", res)
 	}
 
 	return "0.0"
 }
 
+//func GetMutualInductance(LForward, LReverse string) string
 func GetMutualInductance(LForward, LReverse string) string {
 	if (strings.Compare(LForward, "") != 0) && (strings.Compare(LReverse, "") != 0) {
-		LForward_x, _ := strconv.ParseFloat(LForward, 32)
-		LReverse_y, _ := strconv.ParseFloat(LReverse, 32)
-		mi := (math.Abs(LForward_x-LReverse_y) / 4)
+		LForwardX, _ := strconv.ParseFloat(LForward, 32)
+		LReverseY, _ := strconv.ParseFloat(LReverse, 32)
+		mi := (math.Abs(LForwardX-LReverseY) / 4)
 		return fmt.Sprintf("%0.6f", mi)
 	}
 	return "0.0"
 }
 
+//func NewCoefficientForm() (*CoefficientForm, error)
 func NewCoefficientForm() (*CoefficientForm, error) {
 
 	w := &CoefficientForm{}
@@ -67,35 +71,35 @@ func NewCoefficientForm() (*CoefficientForm, error) {
 	w.btn1 = ui.NewPushButton()
 	w.btn1.SetText(Lang.Tr("coupling.calBtn"))
 
-	w.label_1 = ui.NewLabel()
-	w.label_1.SetText(Lang.Tr("coupling.forwardTest"))
+	w.label1 = ui.NewLabel()
+	w.label1.SetText(Lang.Tr("coupling.forwardTest"))
 	w.le1 = ui.NewLineEdit()
 	//QWidget::setGeometry(int,int,int,int)
 	//w.le1.SetGeometryWithXYWidthHeight(150,10,113,20)
 
-	w.label_2 = ui.NewLabel()
-	w.label_2.SetText(Lang.Tr("coupling.reverseTest"))
+	w.label2 = ui.NewLabel()
+	w.label2.SetText(Lang.Tr("coupling.reverseTest"))
 	w.le2 = ui.NewLineEdit()
 	//w.le2.SetGeometryWithXYWidthHeight(150,40,113,20)
 
-	w.label_3 = ui.NewLabel()
-	w.label_3.SetText(Lang.Tr("coupling.PriInduct"))
-	//w.label_3.SetGeometryWithXYWidthHeight(20,70,111,20)
+	w.label3 = ui.NewLabel()
+	w.label3.SetText(Lang.Tr("coupling.PriInduct"))
+	//w.label3.SetGeometryWithXYWidthHeight(20,70,111,20)
 	w.le3 = ui.NewLineEdit()
 	//w.le3.SetGeometryWithXYWidthHeight(150,70,113,20)
 
-	w.label_4 = ui.NewLabel()
-	w.label_4.SetText(Lang.Tr("coupling.SecInduct"))
+	w.label4 = ui.NewLabel()
+	w.label4.SetText(Lang.Tr("coupling.SecInduct"))
 	w.le4 = ui.NewLineEdit()
 	//w.le4.SetGeometryWithXYWidthHeight(150,100,113,20)
 
-	w.label_5 = ui.NewLabel()
-	w.label_5.SetText(Lang.Tr("coupling.mutualInduct"))
+	w.label5 = ui.NewLabel()
+	w.label5.SetText(Lang.Tr("coupling.mutualInduct"))
 	w.le5 = ui.NewLineEdit()
 	//w.le5.SetGeometryWithXYWidthHeight(150,170,113,20)
 
-	w.label_6 = ui.NewLabel()
-	w.label_6.SetText(Lang.Tr("coupling.couplingcoefficien"))
+	w.label6 = ui.NewLabel()
+	w.label6.SetText(Lang.Tr("coupling.couplingcoefficien"))
 	w.le6 = ui.NewLineEdit()
 	//w.le6.SetGeometryWithXYWidthHeight(150,200,113,20)
 
@@ -133,30 +137,30 @@ func NewCoefficientForm() (*CoefficientForm, error) {
 	})
 
 	hbox := ui.NewHBoxLayout()
-	hbox.AddWidget(w.label_1)
+	hbox.AddWidget(w.label1)
 	hbox.AddWidget(w.le1)
 
 	hbox2 := ui.NewHBoxLayout()
-	hbox2.AddWidget(w.label_2)
+	hbox2.AddWidget(w.label2)
 	hbox2.AddWidget(w.le2)
 
 	hbox3 := ui.NewHBoxLayout()
-	hbox3.AddWidget(w.label_3)
+	hbox3.AddWidget(w.label3)
 	hbox3.AddWidget(w.le3)
 
 	hbox4 := ui.NewHBoxLayout()
-	hbox4.AddWidget(w.label_4)
+	hbox4.AddWidget(w.label4)
 	hbox4.AddWidget(w.le4)
 
 	hbox5 := ui.NewHBoxLayout()
 	hbox5.AddWidget(w.btn1)
 
 	hbox6 := ui.NewHBoxLayout()
-	hbox6.AddWidget(w.label_5)
+	hbox6.AddWidget(w.label5)
 	hbox6.AddWidget(w.le5)
 
 	hbox7 := ui.NewHBoxLayout()
-	hbox7.AddWidget(w.label_6)
+	hbox7.AddWidget(w.label6)
 	hbox7.AddWidget(w.le6)
 
 	hbox8 := ui.NewHBoxLayout()

@@ -22,12 +22,14 @@ import (
 )
 
 var (
+	//Cfg for global use
 	Cfg *ini.File
 
-	Langs, Names []string
-	DefLang      string
-	LangsMap     map[string]string
-	LangsMapNum  map[string]int
+	Langs       []string
+	DefLang     string
+	Names       []string
+	LangsMap    map[string]string
+	LangsMapNum map[string]int
 )
 
 func init() {

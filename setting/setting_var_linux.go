@@ -20,6 +20,7 @@ import (
 )
 
 var (
+	//CFG_PATH -> "conf/app.ini"
 	CFG_PATH        = "conf/app.ini"
 	CFG_CUSTOM_PATH = os.Getenv("XDG_CONFIG_HOME") + "/conf/custom.ini"
 	XDG_CONFIG_HOME = os.Getenv("XDG_CONFIG_HOME")

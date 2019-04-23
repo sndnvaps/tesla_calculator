@@ -7,6 +7,7 @@ import (
 	"path"
 )
 
+//func SetDefLangForm(w *MainWindowForm)
 func SetDefLangForm(w *MainWindowForm) {
 
 	label := ui.NewLabel()

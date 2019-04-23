@@ -21,21 +21,23 @@ import (
  *  P = (L/1.7*2.54)^2
  *  L = 1.7 * Sqrt(P) * 2.54
  */
+//func SparkLengthCal(Length, Power string) string
 func SparkLengthCal(Length, Power string) string {
 	//当电弧长度不为空，而功率为空的时候
 	if (strings.Compare(Length, "") != 0) && (strings.Compare(Power, "") == 0) {
-		Length_x, _ := strconv.ParseFloat(Length, 32)
-		p := math.Pow((Length_x / (1.7 * 2.5)), 2)
+		LengthX, _ := strconv.ParseFloat(Length, 32)
+		p := math.Pow((LengthX / (1.7 * 2.5)), 2)
 		return fmt.Sprintf("%0.6f", p)
 		//当电弧长度为空，而功率不为空的时候
 	} else if (strings.Compare(Length, "") == 0) && (strings.Compare(Power, "") != 0) {
-		Power_x, _ := strconv.ParseFloat(Power, 32)
-		l := 1.7 * 2.54 * math.Sqrt(Power_x)
+		PowerX, _ := strconv.ParseFloat(Power, 32)
+		l := 1.7 * 2.54 * math.Sqrt(PowerX)
 		return fmt.Sprintf("%0.6f", l)
 	}
 	return "0.0"
 }
 
+//func SparkLengthForm()
 func SparkLengthForm() {
 
 	label := ui.NewLabel()
