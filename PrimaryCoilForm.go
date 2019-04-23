@@ -4,6 +4,7 @@ import (
 	//"errors"
 	"fmt"
 	"github.com/visualfc/goqt/ui"
+	"github.com/sndnvaps/tesla_calculator/setting"
 	"math"
 	"strconv"
 	"strings"
@@ -154,7 +155,7 @@ func NewPrimaryCoilForm() (*PrimaryCoilForm, error) {
 	w.le8.SetReadOnly(true)
 
 	ImageBox := ui.NewPixmap()
-	imgData, _ := Asset("images/helix_fig.png") //先加载图片
+	imgData, _ := setting.Asset("images/helix_fig.png") //先加载图片
 	ImageBox.LoadFromData(imgData)
 
 	w.picbox.SetPixmap(ImageBox)

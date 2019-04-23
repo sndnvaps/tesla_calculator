@@ -26,14 +26,15 @@ var (
 
 	Langs, Names []string
 	DefLang      string
-        LangsMap map[string]string
-        LangsMapNum map[string]int
+    LangsMap map[string]string
+    LangsMapNum map[string]int
 )
 
 func init() {
 
 	var err error
-	Cfg, err = ini.Load(CFG_PATH)
+    CFG_DATA, _ := Asset("conf/app.ini")
+	Cfg, err = ini.Load(CFG_DATA)
 	if err != nil {
 		panic(fmt.Errorf("fail to load config file '%s': %v", CFG_PATH, err))
 	}

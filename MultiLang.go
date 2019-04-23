@@ -1,5 +1,3 @@
-//+build !windows
-
 package main
 
 import (
@@ -18,12 +16,12 @@ func InitI18n() error {
 
 	langs := setting.Langs
 	for _, lang := range langs {
-		datapath := fmt.Sprintf("%s/conf/locale/locale_%s.ini", setting.GetCurrentDic(), lang)
-
-		i18n.SetMessage(lang, datapath)
+		datapath := fmt.Sprintf("conf/locale/locale_%s.ini", lang)
+        data , _ := setting.Asset(datapath)
+		i18n.SetMessage(lang, data)
 	}
 	Lang = &Controller{
-		Locale: i18n.Locale{setting.DefLang}, //set default in conf/app.ini
+		Locale: i18n.Locale{setting.DefLang},
 	}
 	return i18n.ReloadLangs(langs...)
 }

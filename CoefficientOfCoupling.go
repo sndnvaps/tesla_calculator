@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/visualfc/goqt/ui"
+	"github.com/sndnvaps/tesla_calculator/setting"
 	"math"
 	"strconv"
 	"strings"
@@ -105,7 +106,7 @@ func NewCoefficientForm() (*CoefficientForm, error) {
 	w.le6.SetReadOnly(true)
 
 	ImageBox := ui.NewPixmap()
-	imgData, _ := Asset("images/CouplingDegree.png")
+	imgData, _ := setting.Asset("images/CouplingDegree.png")
 	ImageBox.LoadFromData(imgData)
 
 	w.picbox.SetPixmap(ImageBox)

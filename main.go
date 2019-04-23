@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/visualfc/goqt/ui"
+	"github.com/sndnvaps/tesla_calculator/setting"
 	"os"
 )
 
@@ -15,7 +16,7 @@ func main() {
 		app.SetApplicationName(Lang.Tr("app.tc_desc"))
 
 		Icon := ui.NewPixmap()
-		IconData, _ := Asset("images/tesla.ico")
+		IconData, _ := setting.Asset("images/tesla.ico")
 		Icon.LoadFromData(IconData)
 		TC_Icon := ui.NewIconWithPixmap(Icon)
 		app.SetWindowIcon(TC_Icon)

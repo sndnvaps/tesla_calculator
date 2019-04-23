@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/visualfc/goqt/ui"
+	"github.com/sndnvaps/tesla_calculator/setting"
 	"math"
 	"strconv"
 	"strings"
@@ -81,7 +82,7 @@ func NewToroidForm() (*ToroidForm, error) {
 	w.le3.SetReadOnly(true)
 
 	ImageBox := ui.NewPixmap()
-	imgData, _ := Asset("images/fig_toroid.png")
+	imgData, _ := setting.Asset("images/fig_toroid.png")
 	ImageBox.LoadFromData(imgData)
 
 	w.picbox.SetPixmap(ImageBox)

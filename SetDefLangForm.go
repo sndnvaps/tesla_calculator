@@ -3,6 +3,8 @@ package main
 import (
 	"github.com/sndnvaps/tesla_calculator/setting"
 	"github.com/visualfc/goqt/ui"
+    "os"
+    "path"
 )
 
 func SetDefLangForm(w *MainWindowForm) {
@@ -22,7 +24,8 @@ func SetDefLangForm(w *MainWindowForm) {
 		ChooseLangText := comboBox.CurrentText()
 		if ChooseLangText != setting.DefLang {
 			setting.Cfg.Section("i18n").Key("defaultLang").SetValue(setting.LangsMap[ChooseLangText])
-			setting.Cfg.SaveTo(setting.CFG_PATH)
+            os.MkdirAll(path.Dir(setting.CFG_CUSTOM_PATH),os.ModePerm)
+			setting.Cfg.SaveTo(setting.CFG_CUSTOM_PATH)
 
 			msgBox := ui.NewMessageBox()
 			msgBox.SetText(Lang.Tr("setting.msgBox"))

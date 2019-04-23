@@ -17,15 +17,11 @@ package setting
 
 import (
 	"os"
-	"path/filepath"
 )
 
 var (
-	CFG_PATH        = GetCurrentDic() + "/conf/app.ini"
-	CFG_CUSTOM_PATH = GetCurrentDic() + "/conf/custom.ini"
+	CFG_PATH        =   "conf/app.ini"
+	CFG_CUSTOM_PATH =  os.Getenv("XDG_CONFIG_HOME") + "/conf/custom.ini"
+    XDG_CONFIG_HOME            =    os.Getenv("XDG_CONFIG_HOME")
 )
 
-func GetCurrentDic() string {
-	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
-	return dir
-}

@@ -28,7 +28,6 @@ fi
 
 function Pack {
 cp /usr/bin/desktop-file-validate $des/usr/bin/
-cp -rp conf $des/usr/bin/
 linuxdeployqt $des/usr/share/applications/$Exec.desktop -appimage \
   -executable=$des/usr/bin/desktop-file-validate
 #appimagetool  $ReleaseFolder
