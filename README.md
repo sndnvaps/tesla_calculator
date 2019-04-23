@@ -3,6 +3,10 @@
 用于计算特斯拉线圈各项参数的小计算工具,基于[goqt](https://github.com/visualfc/goqt)开发
 
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/sndnvaps/tesla_calculator)](https://goreportcard.com/report/github.com/sndnvaps/tesla_calculator)
+
+
+
 After update [images](images) and [conf](conf)，need to use [go-bindata](https://github.com/go-bindata/go-bindata) to update [setting/images_bindata.go](setting/images_bindata.go)
 
 ```bash
