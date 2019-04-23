@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/visualfc/goqt/ui"
 	"github.com/sndnvaps/tesla_calculator/setting"
+	"github.com/visualfc/goqt/ui"
 	"os"
 )
 

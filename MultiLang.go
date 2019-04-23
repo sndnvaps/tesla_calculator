@@ -17,7 +17,7 @@ func InitI18n() error {
 	langs := setting.Langs
 	for _, lang := range langs {
 		datapath := fmt.Sprintf("conf/locale/locale_%s.ini", lang)
-        data , _ := setting.Asset(datapath)
+		data, _ := setting.Asset(datapath)
 		i18n.SetMessage(lang, data)
 	}
 	Lang = &Controller{

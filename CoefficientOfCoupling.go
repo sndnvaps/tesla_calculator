@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/visualfc/goqt/ui"
 	"github.com/sndnvaps/tesla_calculator/setting"
+	"github.com/visualfc/goqt/ui"
 	"math"
 	"strconv"
 	"strings"
